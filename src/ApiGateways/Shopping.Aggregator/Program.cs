@@ -1,4 +1,5 @@
-
+using Core.Configurations;
+using Serilog;
 using Shopping.Aggregator.Services;
 
 namespace Shopping.Aggregator
@@ -8,6 +9,9 @@ namespace Shopping.Aggregator
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            HostConfigurations.ConfigureSerilog();
+            builder.Host.UseSerilog();
 
             // Add services to the container.
 

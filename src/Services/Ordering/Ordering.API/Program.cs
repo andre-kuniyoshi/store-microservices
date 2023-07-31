@@ -5,7 +5,8 @@ using Ordering.API.Extensions;
 using Ordering.Application.Extensions;
 using Ordering.Infra.Data.Context;
 using Ordering.Infra.Extensions;
-using System.Reflection;
+using Serilog;
+using Core.Configurations;
 
 namespace Ordering.API
 {
@@ -14,6 +15,9 @@ namespace Ordering.API
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            HostConfigurations.ConfigureSerilog();
+            builder.Host.UseSerilog();
 
             // Add services to the container.
             builder.Services.AddControllers();

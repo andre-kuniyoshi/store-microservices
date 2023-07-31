@@ -1,6 +1,12 @@
 version: '3.4'
 
 services:
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch
+  kibana:
+     image: docker.elastic.co/kibana/kibana
+
   portainer:
     image: portainer/portainer-ce
 
@@ -75,5 +81,5 @@ volumes:
   postgres_data:
   portainer_data:
   pgadmin_data:
-  
+  elasticsearch-data:
 

@@ -1,4 +1,6 @@
+using Core.Configurations;
 using Core.DependencyInjectionExtension;
+using Serilog;
 
 namespace Basket.API
 {
@@ -7,6 +9,9 @@ namespace Basket.API
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            HostConfigurations.ConfigureSerilog();
+            builder.Host.UseSerilog();
 
             // Add services to the container.
             builder.Services.AddControllers();

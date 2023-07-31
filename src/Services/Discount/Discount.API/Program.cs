@@ -1,6 +1,8 @@
 using Discount.API.Extensions;
 using Discount.Infra.Extensions;
 using Discount.Application.Extensions;
+using Core.Configurations;
+using Serilog;
 
 namespace Discount.API
 {
@@ -9,6 +11,9 @@ namespace Discount.API
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            HostConfigurations.ConfigureSerilog();
+            builder.Host.UseSerilog();
 
             // Add services to the container.
             builder.Services.AddControllers();

@@ -2,6 +2,8 @@ using Discount.Grpc.Extensions;
 using Discount.Grpc.Services;
 using Discount.Infra.Extensions;
 using Discount.Application.Extensions;
+using Core.Configurations;
+using Serilog;
 
 namespace Discount.Grpc
 {
@@ -10,6 +12,9 @@ namespace Discount.Grpc
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            HostConfigurations.ConfigureSerilog();
+            builder.Host.UseSerilog();
 
             // Additional configuration is required to successfully run gRPC on macOS.
             // For instructions on how to configure Kestrel and gRPC clients on macOS, visit https://go.microsoft.com/fwlink/?linkid=2099682

@@ -1,8 +1,7 @@
-using System;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+using Core.Configurations;
+using Serilog;
 
 namespace AspNetRazor
 {
@@ -10,12 +9,14 @@ namespace AspNetRazor
     {
         public static void Main(string[] args)
         {
+            HostConfigurations.ConfigureSerilog();
             var host = CreateHostBuilder(args).Build();
+
             host.Run();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
+            Host.CreateDefaultBuilder(args).UseSerilog()
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();

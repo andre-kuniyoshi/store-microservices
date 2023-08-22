@@ -8,9 +8,9 @@ FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
 COPY ["Services/Discount/Discount.API/Discount.API.csproj", "Services/Discount/Discount.API/"]
 COPY ["Services/Discount/Discount.Application/Discount.Application.csproj", "Services/Discount/Discount.Application/"]
-COPY ["Services/Discount/Discount.Infra/Discount.Infra.csproj", "Services/Discount/Discount.Infra/"]
+COPY ["BuildingBlocks/Core/Core.csproj", "BuildingBlocks/Core/"]
 COPY ["Services/Discount/Discount.Domain/Discount.Domain.csproj", "Services/Discount/Discount.Domain/"]
-COPY ["Libs/Core/Core/Core.csproj", "Libs/Core/Core/"]
+COPY ["Services/Discount/Discount.Infra/Discount.Infra.csproj", "Services/Discount/Discount.Infra/"]
 RUN dotnet restore "Services/Discount/Discount.API/Discount.API.csproj"
 COPY . .
 WORKDIR "/src/Services/Discount/Discount.API"

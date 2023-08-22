@@ -2,7 +2,7 @@
 
 namespace Catalog.API.Services
 {
-    public interface ICatalogService
+    public interface IProductService
     {
         public Task<List<Product>> GetProducts();
         public Task<Product?> GetProductById(string id);

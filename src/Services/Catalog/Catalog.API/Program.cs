@@ -1,3 +1,4 @@
+using Catalog.API.Data.SeedData;
 using Core.Configurations;
 using Core.DependencyInjectionExtension;
 using Serilog;
@@ -24,6 +25,8 @@ namespace Catalog.API
 
             var app = builder.Build();
 
+            app.Lifetime.ApplicationStarted.Register(() => CatalogContextSeed.SeedData(app.Configuration));
+
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
@@ -32,7 +35,6 @@ namespace Catalog.API
             }
 
             app.UseAuthorization();
-
 
             app.MapControllers();
 

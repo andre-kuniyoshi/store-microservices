@@ -8,7 +8,7 @@ namespace Catalog.API
     {
         public static IServiceCollection AddDependencyInjection(this IServiceCollection services)
         {
-            services.AddScoped<ICatalogService, CatalogService>();
+            services.AddScoped<IProductService, ProductService>();
             services.AddScoped<ICatalogContext, CatalogContext>();
             services.AddScoped<IProductRepository, ProductRepository>();
 

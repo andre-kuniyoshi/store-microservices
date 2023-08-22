@@ -6,12 +6,17 @@ namespace Catalog.API.Data.SeedData
 {
     public class CatalogContextSeed
     {
-        public static void SeedData(IMongoCollection<Product> productCollection)
+        public async static Task SeedData(IConfiguration config)
         {
-            bool existProduct = productCollection.Find(p => true).Any();
+            var client = new MongoClient(config.GetValue<string>("DatabaseSettings:ConnectionString"));
+            var database = client.GetDatabase(config.GetValue<string>("DatabaseSettings:DatabaseName"));
+
+            var products = database.GetCollection<Product>(config.GetValue<string>("DatabaseSettings:CollectionName"));
+
+            bool existProduct = products.Find(p => true).Any();
             if (!existProduct)
             {
-                productCollection.InsertManyAsync(GetPreconfiguredProducts());
+                await products.InsertManyAsync(GetPreconfiguredProducts());
             }
         }
 
@@ -19,6 +24,14 @@ namespace Catalog.API.Data.SeedData
         {
             var productsData = File.ReadAllText("Data/SeedData/Products.json");
             var products = JsonSerializer.Deserialize<IEnumerable<Product>>(productsData);
+
+            foreach (var item in products)
+            {
+                item.Active = true;
+                item.CreatedBy = "Admin";
+                item.CreatedDate = DateTime.Now;
+            }
+
             return products;
         }
     }

@@ -1,5 +1,4 @@
-﻿using Catalog.API.Data.SeedData;
-using Catalog.API.Entities;
+﻿using Catalog.API.Entities;
 using MongoDB.Driver;
 
 namespace Catalog.API.Data.Context
@@ -16,7 +15,6 @@ namespace Catalog.API.Data.Context
             var database = client.GetDatabase(_config.GetValue<string>("DatabaseSettings:DatabaseName"));
 
             Products = database.GetCollection<Product>(_config.GetValue<string>("DatabaseSettings:CollectionName"));
-            CatalogContextSeed.SeedData(Products);
         }
 
     }

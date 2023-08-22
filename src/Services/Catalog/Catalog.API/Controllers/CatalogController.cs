@@ -9,9 +9,9 @@ namespace Catalog.API.Controllers
     [Route("api/v1/[controller]")]
     public class CatalogController : MainController<CatalogController>
     {
-        private readonly ICatalogService _catalogService;
+        private readonly IProductService _catalogService;
 
-        public CatalogController(ICatalogService catalogService, INotifier notifier, ILogger<CatalogController> logger) : base(notifier, logger)
+        public CatalogController(IProductService catalogService, INotifier notifier, ILogger<CatalogController> logger) : base(notifier, logger)
         {
             _catalogService = catalogService;
         }

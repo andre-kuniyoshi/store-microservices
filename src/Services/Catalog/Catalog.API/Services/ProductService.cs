@@ -4,11 +4,11 @@ using Core.NotifierErrors;
 
 namespace Catalog.API.Services
 {
-    public class CatalogService : BaseService, ICatalogService
+    public class ProductService : BaseService, IProductService
     {
         private readonly IProductRepository _productRepo;
 
-        public CatalogService(IProductRepository productRepo, INotifier notifier) : base(notifier)
+        public ProductService(IProductRepository productRepo, INotifier notifier) : base(notifier)
         {
             _productRepo = productRepo;
         }

@@ -1,9 +1,10 @@
-﻿using MongoDB.Bson;
+﻿using Core.Common;
+using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
 namespace Catalog.API.Entities
 {
-    public class Product
+    public class Product : ControlEntity
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
@@ -12,9 +13,12 @@ namespace Catalog.API.Entities
         [BsonElement("Name")]
         public string Name { get; set; }
         public string Category { get; set; }
+        public string Brand { get; set; }
         public string Summary { get; set; }
         public string Description { get; set; }
         public string ImageFile { get; set; }
         public decimal Price { get; set; }
+        public decimal? DiscountPrice { get; set; }
+        public int Quantity {  get; set; }
     }
 }

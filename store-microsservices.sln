@@ -33,15 +33,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Discount.Application", "src
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Discount.Infra", "src\Services\Discount\Discount.Infra\Discount.Infra.csproj", "{FDC3735D-7767-4A76-91C7-A535BE683C12}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Ordering", "Ordering", "{11563044-F8BD-45EC-9726-1BDDD2E43FF7}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Order", "Order", "{11563044-F8BD-45EC-9726-1BDDD2E43FF7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ordering.Domain", "src\Services\Ordering\Ordering.Domain\Ordering.Domain.csproj", "{6358F502-0EA2-46BD-B7B1-1EEB41CBC9F4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Order.Domain", "src\Services\Order\Order.Domain\Order.Domain.csproj", "{6358F502-0EA2-46BD-B7B1-1EEB41CBC9F4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ordering.Application", "src\Services\Ordering\Ordering.Application\Ordering.Application.csproj", "{EA04C1AB-9EFC-40D5-8EBA-BEF763EE663C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Order.Application", "src\Services\Order\Order.Application\Order.Application.csproj", "{EA04C1AB-9EFC-40D5-8EBA-BEF763EE663C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ordering.Infra", "src\Services\Ordering\Ordering.Infra\Ordering.Infra.csproj", "{C27AEAD5-8ACD-4303-894C-49EA4E75B04A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Order.Infra", "src\Services\Order\Order.Infra\Order.Infra.csproj", "{C27AEAD5-8ACD-4303-894C-49EA4E75B04A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ordering.API", "src\Services\Ordering\Ordering.API\Ordering.API.csproj", "{70D3ECC6-65EC-4006-AA41-85896CC6B258}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Order.API", "src\Services\Order\Order.API\Order.API.csproj", "{70D3ECC6-65EC-4006-AA41-85896CC6B258}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BuildingBlocks", "BuildingBlocks", "{5307C6B0-4876-4446-BEA4-34B175F176A3}"
 EndProject

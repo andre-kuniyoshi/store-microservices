@@ -1,0 +1,21 @@
+[
+  {
+    "Id": "7f6b4c06-b0ae-4a74-b19b-2824d7d82369",
+    "Name": "Andre",
+    "Document": "19117354897",
+    "BirthDate": "1991-05-15",
+    "Ddd": "11",
+    "Telefone": "98765-4321",
+    "Email": "andre@teste.com",
+    "Address": {
+      "Id": "18f023cd-f125-477b-9638-b60a647302ee",
+      "Street": "Rua um",
+      "Number": "123",
+      "Complement": "sem complemento",
+      "District": "Se",
+      "CEP": "12345080",
+      "City": "Sao Paulo",
+      "UF": "SP"
+    }
+  }
+]

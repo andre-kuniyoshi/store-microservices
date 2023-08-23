@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Order.Infra.Migrations
+namespace Order.Infra.Data.Migrations
 {
     /// <inheritdoc />
     public partial class InitialMigration : Migration
@@ -15,8 +15,7 @@ namespace Order.Infra.Migrations
                 name: "Orders",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     UserName = table.Column<string>(type: "varchar(200)", nullable: false),
                     TotalPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     FirstName = table.Column<string>(type: "varchar(100)", nullable: false),

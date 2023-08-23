@@ -4,8 +4,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Order.Domain.Entities;
+using Order.Infra.Data.Context;
 
-namespace Order.Infra.Data.Context
+namespace Order.Infra.Data.Seed
 {
     public class OrderContextSeed
     {

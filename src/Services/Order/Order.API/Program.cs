@@ -3,10 +3,10 @@ using MassTransit;
 using Order.API.EventBusConsumer;
 using Order.API.Extensions;
 using Order.Application.Extensions;
-using Order.Infra.Data.Context;
 using Order.Infra.Extensions;
 using Serilog;
 using Core.Configurations;
+using Order.Infra.Data.Seed;
 
 namespace Order.API
 {

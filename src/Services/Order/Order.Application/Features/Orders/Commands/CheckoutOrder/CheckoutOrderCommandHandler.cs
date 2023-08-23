@@ -8,7 +8,7 @@ using Order.Domain.Entities;
 
 namespace Order.Application.Features.Orders.Commands.CheckoutOrder
 {
-    public class CheckoutOrderCommandHandler : IRequestHandler<CheckoutOrderCommand, int>
+    public class CheckoutOrderCommandHandler : IRequestHandler<CheckoutOrderCommand, Guid>
     {
         private readonly IOrderRepository _orderRepository;
         private readonly IMapper _mapper;
@@ -23,7 +23,7 @@ namespace Order.Application.Features.Orders.Commands.CheckoutOrder
             _logger = logger;
         }
 
-        public async Task<int> Handle(CheckoutOrderCommand request, CancellationToken cancellationToken)
+        public async Task<Guid> Handle(CheckoutOrderCommand request, CancellationToken cancellationToken)
         {
             var orderEntity = _mapper.Map<PurchaseOrder>(request);
             var newOrder = await _orderRepository.AddAsync(orderEntity);

@@ -63,13 +63,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Identity", "Identity", "{10
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServer", "src\Services\Identity\Identity\IdentityServer.csproj", "{17911799-8F64-4F1A-A669-9E911F9524BE}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Users", "Users", "{2146BBAA-9CB3-427D-ABF9-AC36CE07E4D3}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Register", "Register", "{2146BBAA-9CB3-427D-ABF9-AC36CE07E4D3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Users.API", "src\Services\Users\Users.API\Users.API.csproj", "{355D96E5-7FFA-4A78-9098-7D50FE86BC36}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Register.API", "src\Services\Register\Register.API\Register.API.csproj", "{355D96E5-7FFA-4A78-9098-7D50FE86BC36}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Users.Application", "src\Services\Users\Users.Application\Users.Application.csproj", "{1A893B5B-FB9A-43E5-82E4-C2BF58A00EB3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Register.Application", "src\Services\Register\Register.Application\Register.Application.csproj", "{1A893B5B-FB9A-43E5-82E4-C2BF58A00EB3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Users.Infra", "src\Services\Users\Users.Infra\Users.Infra.csproj", "{8099DFDE-0587-4079-BE6D-94B147565D98}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Register.Infra", "src\Services\Register\Register.Infra\Register.Infra.csproj", "{8099DFDE-0587-4079-BE6D-94B147565D98}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{BD439EB7-ED82-4425-98C4-A1E0336FC1DF}"
 EndProject

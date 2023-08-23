@@ -86,6 +86,14 @@ services:
       - "5672:5672"
       - "15672:15672"
 
+  register.api:
+    container_name: register.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "ConnectionStrings:OrderingConnectionString=Server=shop-sqlserver;Database=ShopDB;User Id=sa;Password=Admin@1234;Encrypt=False;Trusted_Connection=False;"
+    ports:
+      - "8000:80"
+
   catalog.api:
     container_name: catalog.api
     environment:
@@ -94,7 +102,7 @@ services:
     depends_on:
       - catalogdb
     ports:
-      - "8000:80"
+      - "8001:80"
 
   basket.api:
     container_name: basket.api
@@ -107,8 +115,7 @@ services:
       - basketdb
       - rabbitmq
     ports:
-      - "8001:80"
-
+      - "8002:80"
 
   discount.api:
     container_name: discount.api
@@ -118,7 +125,7 @@ services:
     depends_on:
       - discountdb
     ports:
-      - "8002:80"
+      - "8003:80"
 
 
   discount.grpc:
@@ -129,7 +136,7 @@ services:
     depends_on:
       - discountdb
     ports:
-      - "8003:80"
+      - "8013:80"
 
   ordering.api:
     container_name: ordering.api

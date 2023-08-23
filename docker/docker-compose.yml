@@ -28,6 +28,12 @@ services:
   rabbitmq:
     image: rabbitmq:3-management-alpine
 
+  register.api:
+    image: ${DOCKER_REGISTRY-}registerapi
+    build:
+        context: ..
+        dockerfile: src/Services/Register/Register.API/Dockerfile
+
   catalog.api:
     image: ${DOCKER_REGISTRY-}catalogapi
     build:

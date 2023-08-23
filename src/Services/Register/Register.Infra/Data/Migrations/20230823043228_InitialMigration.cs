@@ -21,7 +21,7 @@ namespace Register.Infra.Data.Migrations
                     Document = table.Column<string>(type: "varchar(20)", nullable: false),
                     Ddd = table.Column<string>(type: "varchar(3)", nullable: false),
                     Phone = table.Column<string>(type: "varchar(10)", nullable: false),
-                    Email = table.Column<string>(type: "varchar(100)", nullable: true),
+                    Email = table.Column<string>(type: "varchar(100)", nullable: false),
                     Active = table.Column<bool>(type: "bit", nullable: false),
                     CreatedBy = table.Column<string>(type: "varchar(100)", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -30,7 +30,7 @@ namespace Register.Infra.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Registers", x => x.Id);
+                    table.PrimaryKey("PK_Register", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -38,7 +38,7 @@ namespace Register.Infra.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    RegisterId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Street = table.Column<string>(type: "varchar(200)", nullable: false),
                     Number = table.Column<string>(type: "varchar(50)", nullable: true),
                     Complement = table.Column<string>(type: "varchar(250)", nullable: true),
@@ -56,17 +56,17 @@ namespace Register.Infra.Data.Migrations
                 {
                     table.PrimaryKey("PK_Adresses", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Adresses_Registers_RegisterId",
-                        column: x => x.RegisterId,
+                        name: "FK_Adresses_Register_UserId",
+                        column: x => x.UserId,
                         principalTable: "Register",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Adresses_RegisterId",
+                name: "IX_Adresses_UserId",
                 table: "Adresses",
-                column: "RegisterId",
+                column: "UserId",
                 unique: true);
         }
 

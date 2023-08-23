@@ -19,14 +19,13 @@ namespace Register.Infra.Data.Mappings
                 .HasColumnType("varchar(20)");
 
             builder.Property(p => p.Ddd)
-                .IsRequired()
                 .HasColumnType("varchar(3)");
 
             builder.Property(p => p.Phone)
-                .IsRequired()
                 .HasColumnType("varchar(10)");
 
             builder.Property(p => p.Email)
+                .IsRequired()
                 .HasColumnType("varchar(100)");
 
             builder.HasOne(f => f.Address)

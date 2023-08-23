@@ -17,7 +17,7 @@ namespace Register.Infra.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.9")
+                .HasAnnotation("ProductVersion", "7.0.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -70,18 +70,18 @@ namespace Register.Infra.Data.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(2)");
 
-                    b.Property<Guid>("RegisterId")
+                    b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("RegisterId")
+                    b.HasIndex("UserId")
                         .IsUnique();
 
                     b.ToTable("Adresses", (string)null);
                 });
 
-            modelBuilder.Entity("Register.Application.Domain.Entities.Register", b =>
+            modelBuilder.Entity("Register.Application.Domain.Entities.User", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -109,6 +109,7 @@ namespace Register.Infra.Data.Migrations
                         .HasColumnType("varchar(20)");
 
                     b.Property<string>("Email")
+                        .IsRequired()
                         .HasColumnType("varchar(100)");
 
                     b.Property<string>("LastModifiedBy")
@@ -132,16 +133,16 @@ namespace Register.Infra.Data.Migrations
 
             modelBuilder.Entity("Register.Application.Domain.Entities.Address", b =>
                 {
-                    b.HasOne("Register.Application.Domain.Entities.Register", "Register")
+                    b.HasOne("Register.Application.Domain.Entities.User", "User")
                         .WithOne("Address")
-                        .HasForeignKey("Register.Application.Domain.Entities.Address", "RegisterId")
+                        .HasForeignKey("Register.Application.Domain.Entities.Address", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Register");
+                    b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Register.Application.Domain.Entities.Register", b =>
+            modelBuilder.Entity("Register.Application.Domain.Entities.User", b =>
                 {
                     b.Navigation("Address")
                         .IsRequired();

@@ -1,4 +1,3 @@
-#See https://aka.ms/customizecontainer to learn how to customize your debug container and how Visual Studio uses this Dockerfile to build your images for faster debugging.
 
 FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS base
 WORKDIR /app
@@ -6,12 +5,13 @@ EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
-COPY ["src/Server-side/Register.API/Register.API.csproj", "src/Server-side/Register.API/"]
-COPY ["src/Server-side/Register.Application/Register.Application.csproj", "src/Server-side/Register.Application/"]
-COPY ["src/Server-side/Register.Infra/Register.Infra.csproj", "src/Server-side/Register.Infra/"]
-RUN dotnet restore "src/Server-side/Register.API/Register.API.csproj"
+COPY ["Services/Register/Register.API/Register.API.csproj", "Services/Register/Register.API/"]
+COPY ["Services/Register/Register.Application/Register.Application.csproj", "Services/Register/Register.Application/"]
+COPY ["BuildingBlocks/Core/Core.csproj", "BuildingBlocks/Core/"]
+COPY ["Services/Register/Register.Infra/Register.Infra.csproj", "Services/Register/Register.Infra/"]
+RUN dotnet restore "Services/Register/Register.API/Register.API.csproj"
 COPY . .
-WORKDIR "/src/src/Server-side/Register.API"
+WORKDIR "/src/Services/Register/Register.API"
 RUN dotnet build "Register.API.csproj" -c Release -o /app/build
 
 FROM build AS publish

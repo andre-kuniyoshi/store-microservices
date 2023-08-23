@@ -44,10 +44,6 @@ namespace Order.Infra.Data.Seed
                         MigrateDatabase(webApp, retryForAvailability);
                     }
                 }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex);
-                }
             }
         }
 
@@ -57,24 +53,27 @@ namespace Order.Infra.Data.Seed
             {
                 context.Users.AddRange(GetPreconfiguredRegisters());
                 await context.SaveChangesAsync();
-                logger.LogInformation("Seed Register table");
+                logger.LogInformation("Seed Users table");
             }
         }
 
         private static IEnumerable<User> GetPreconfiguredRegisters()
         {
-            Console.WriteLine("./Data/Seed/Register.json");
-            var RegistersData = File.ReadAllText("../Register.Infra/Data/Seed/Register.json");
-            var Register = JsonSerializer.Deserialize<IEnumerable<User>>(RegistersData);
+            var usersData = File.ReadAllText("../Register.Infra/Data/Seed/Users.json");
+            var users = JsonSerializer.Deserialize<IEnumerable<User>>(usersData);
 
-            foreach (var item in Register)
+            foreach (var item in users)
             {
                 item.Active = true;
                 item.CreatedBy = "Admin";
                 item.CreatedDate = DateTime.Now;
+
+                item.Address.Active = true;
+                item.Address.CreatedBy = "Admin";
+                item.Address.CreatedDate = DateTime.Now;
             }
 
-            return Register;
+            return users;
         }
     }
 }

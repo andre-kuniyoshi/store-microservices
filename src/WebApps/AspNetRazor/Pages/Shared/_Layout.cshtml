@@ -40,19 +40,19 @@
                             <a class="nav-link" asp-area="" asp-page="/Contact">Contact</a>
                         </li>
                     </ul>
-
+                    @Html.Partial("_LoginPartial")
                     <form class="form-inline my-2 my-lg-0">
-                        <div class="input-group input-group-sm">
+                        @* <div class="input-group input-group-sm">
                             <input type="text" class="form-control" placeholder="Search...">
                             <div class="input-group-append">
                                 <button type="button" class="btn btn-secondary btn-number">
                                     <i class="fa fa-search"></i>
                                 </button>
                             </div>
-                        </div>
+                        </div> *@
                         <a class="btn btn-success btn-sm ml-3" asp-area="" asp-page="/Cart">
                             <i class="fa fa-shopping-cart"></i> Cart
-                            <span class="badge badge-light">3</span>
+                            @* <span class="badge badge-light">3</span> *@
                         </a>
                     </form>
                 </div>
@@ -117,7 +117,6 @@
                     <p class="float-left">
                         <a href="#">Back to top</a>
                     </p>
-                    <p class="text-right text-muted">created with <i class="fa fa-heart"></i> by <a href="https://t-php.fr/43-theme-ecommerce-bootstrap-4.html"><i>t-php</i></a> | <span>v. 1.0</span></p>
                 </div>
             </div>
         </div>

@@ -13,16 +13,16 @@ services:
   pgadmin:
     image: dpage/pgadmin4
 
-  catalogdb:
+  mongodb:
     image: mongo
 
-  basketdb:
+  redisdb:
     image: redis:alpine
 
-  discountdb:
+  postgresdb:
     image: postgres
 
-  orderdb:
+  sqlserverdb:
     image: mcr.microsoft.com/mssql/server:2022-latest
 
   rabbitmq:
@@ -31,8 +31,8 @@ services:
   register.api:
     image: ${DOCKER_REGISTRY-}registerapi
     build:
-        context: ..
-        dockerfile: src/Services/Register/Register.API/Dockerfile
+        context: ../src
+        dockerfile: Services/Register/Register.API/Dockerfile
 
   catalog.api:
     image: ${DOCKER_REGISTRY-}catalogapi
@@ -58,11 +58,11 @@ services:
       context: ../src
       dockerfile: Services/Discount/Discount.Grpc/Dockerfile
 
-  ordering.api:
-    image: ${DOCKER_REGISTRY-}orderingapi
+  order.api:
+    image: ${DOCKER_REGISTRY-}orderapi
     build:
       context: ../src
-      dockerfile: Services/Ordering/Ordering.API/Dockerfile
+      dockerfile: Services/Order/Order.API/Dockerfile
 
   ocelotapigateway:
     image: ${DOCKER_REGISTRY-}ocelotapigateway

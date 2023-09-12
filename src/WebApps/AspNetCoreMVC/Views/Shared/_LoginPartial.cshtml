@@ -1,0 +1,27 @@
+﻿@using System.Security.Claims
+@model string
+
+@if (User?.Identity is { IsAuthenticated: true })
+{
+    <ul class="nav-item">
+        <form method="post" asp-controller="Authentication" asp-action="Logout">
+            <button type="submit" style="width:auto"
+                    class="nav-link btn btn-link py-0">
+                Logout @User.Identity.Name
+            </button>
+        </form>
+    </ul>
+}
+else
+{
+    @* <ul class="nav-item">
+        <a class="nav-link" asp-controller="account" asp-action="register">
+            Register
+        </a>
+    </ul> *@
+    <ul class="nav-item">
+        <a class="nav-link" asp-controller="Authentication" asp-action="Login">
+            Login
+        </a>
+    </ul>
+}

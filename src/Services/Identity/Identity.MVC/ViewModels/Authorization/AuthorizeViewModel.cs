@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Identity.MVC.ViewModels
+namespace Identity.MVC.ViewModels.Authorization
 {
     public class AuthorizeViewModel
     {

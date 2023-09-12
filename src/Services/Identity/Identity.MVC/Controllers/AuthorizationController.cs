@@ -2,7 +2,7 @@
 using System.Security.Claims;
 using Identity.Application.Domain;
 using Identity.MVC.Helpers;
-using Identity.MVC.ViewModels;
+using Identity.MVC.ViewModels.Authorization;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;

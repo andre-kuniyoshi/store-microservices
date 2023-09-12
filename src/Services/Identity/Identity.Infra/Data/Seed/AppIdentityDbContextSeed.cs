@@ -74,14 +74,15 @@ namespace Identity.Infra.Data.Seed
                 {
                     ClientId = "c05471b2-c723-4232-8c1a-244c1fc2a4af",
                     ClientSecret = "aspnetmvc-secret",
+                    ConsentType = ConsentTypes.Explicit,
                     DisplayName = "AspNetMVC",
                     RedirectUris =
                     {
-                        new Uri("https://localhost:44338/callback/login/local")
+                        new Uri("https://localhost:5021/callback/login/local")
                     },
                     PostLogoutRedirectUris =
                     {
-                        new Uri("https://localhost:44338/callback/logout/local")
+                        new Uri("https://localhost:5021/callback/logout/local")
                     },
                     Permissions =
                     {

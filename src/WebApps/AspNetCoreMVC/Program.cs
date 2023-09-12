@@ -1,7 +1,7 @@
+using AspNetCoreMVC.Configurations;
 using AspNetCoreMVC.Data;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
-using System.Configuration;
+using Quartz;
 
 namespace AspNetCoreMVC
 {
@@ -14,6 +14,20 @@ namespace AspNetCoreMVC
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
+            builder.Services.AddAuthConfigurations();
+
+            //OpenIddict offers native integration with Quartz.NET to perform scheduled tasks
+            //(like pruning orphaned authorizations from the database) at regular intervals.
+            builder.Services.AddQuartz(options =>
+            {
+               options.UseMicrosoftDependencyInjectionJobFactory();
+               options.UseSimpleTypeLoader();
+               options.UseInMemoryStore();
+            });
+
+            //Register the Quartz.NET service and configure it to block shutdown until jobs are complete.
+            builder.Services.AddQuartzHostedService(options => options.WaitForJobsToComplete = true);
+
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
             {
                 // Configure the context to use sqlite.
@@ -24,6 +38,8 @@ namespace AspNetCoreMVC
                 // to replace the default OpenIddict entities.
                 options.UseOpenIddict();
             });
+
+            builder.Services.AddOpeniddictConfigurations();
 
             builder.Services.AddHttpClient();
 

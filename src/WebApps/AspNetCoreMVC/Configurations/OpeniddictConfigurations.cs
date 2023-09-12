@@ -53,10 +53,10 @@ namespace AspNetCoreMVC.Configurations
                  // Add a client registration matching the client application definition in the server project.
                  options.AddRegistration(new OpenIddictClientRegistration
                  {
-                     Issuer = new Uri("https://localhost:44313/", UriKind.Absolute),
+                     Issuer = new Uri("https://localhost:5000/", UriKind.Absolute),
 
-                     ClientId = "mvc",
-                     ClientSecret = "901564A5-E7FE-42CB-B10D-61EF6A8F3654",
+                     ClientId = "c05471b2-c723-4232-8c1a-244c1fc2a4af",
+                     ClientSecret = "aspnetmvc-secret",
                      Scopes = { Scopes.Email, Scopes.Profile },
 
                      // Note: to mitigate mix-up attacks, it's recommended to use a unique redirection endpoint

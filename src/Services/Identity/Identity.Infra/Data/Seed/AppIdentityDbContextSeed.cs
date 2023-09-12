@@ -73,31 +73,26 @@ namespace Identity.Infra.Data.Seed
                 await applicationManager.CreateAsync(new OpenIddictApplicationDescriptor
                 {
                     ClientId = "c05471b2-c723-4232-8c1a-244c1fc2a4af",
-                    ClientSecret = "aspnetrazor-secret",
-                    DisplayName = "AspNetRazor",
-                    PostLogoutRedirectUris =
-                    {
-                        new Uri("https://localhost:44310/authentication/logout-callback")
-                    },
+                    ClientSecret = "aspnetmvc-secret",
+                    DisplayName = "AspNetMVC",
                     RedirectUris =
                     {
-                        new Uri("https://localhost:44310/authentication/login-callback")
+                        new Uri("https://localhost:44338/callback/login/local")
+                    },
+                    PostLogoutRedirectUris =
+                    {
+                        new Uri("https://localhost:44338/callback/logout/local")
                     },
                     Permissions =
                     {
                         Permissions.Endpoints.Authorization,
                         Permissions.Endpoints.Logout,
                         Permissions.Endpoints.Token,
-                        Permissions.Endpoints.Introspection,
-
                         Permissions.GrantTypes.AuthorizationCode,
-                        Permissions.GrantTypes.RefreshToken,
                         Permissions.ResponseTypes.Code,
-
                         Permissions.Scopes.Email,
                         Permissions.Scopes.Profile,
-                        Permissions.Scopes.Roles,
-                        Permissions.Prefixes.Scope + "api"
+                        Permissions.Scopes.Roles
                     },
                     Requirements =
                     {

@@ -1,7 +1,7 @@
 ﻿using Identity.Infra.Data.Context;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using static OpenIddict.Abstractions.OpenIddictConstants;
 
 namespace Identity.Infra.Openiddict
 {
@@ -16,6 +16,8 @@ namespace Identity.Infra.Openiddict
                     // Configure OpenIddict to use the EF Core stores/models.
                     options.UseEntityFrameworkCore()
                         .UseDbContext<AppIdentityDbContext>();
+
+                    options.UseQuartz();
                 })
 
                 // Register the OpenIddict server components.
@@ -25,13 +27,10 @@ namespace Identity.Infra.Openiddict
                          Convert.FromBase64String("DRjd/GnduI3Efzen9V9BvbNUfc/VKgXltV7Kbk9sMkY=")));
 
                     options
-                       .AllowClientCredentialsFlow()
                         .AllowAuthorizationCodeFlow()
-                            .RequireProofKeyForCodeExchange()
-                        .AllowRefreshTokenFlow();
+                        .RequireProofKeyForCodeExchange();
 
                     options
-                        .SetTokenEndpointUris("/connect/token")
                         .SetTokenEndpointUris("/connect/token")
                         .SetAuthorizationEndpointUris("/connect/authorize")
                         .SetIntrospectionEndpointUris("/connect/token/introspect")
@@ -44,7 +43,7 @@ namespace Identity.Infra.Openiddict
                         .DisableAccessTokenEncryption();
 
                     // Register scopes (permissions)
-                    options.RegisterScopes("api");
+                    options.RegisterScopes(Scopes.Email, Scopes.Profile, Scopes.Roles, "api");
 
                     // Register the ASP.NET Core host and configure the ASP.NET Core-specific options.
                     options

@@ -17,6 +17,7 @@ namespace AspNetCoreMVC.Configurations
                 options.ExpireTimeSpan = TimeSpan.FromMinutes(50);
                 options.SlidingExpiration = false;
             });
+
             return services;
         }
     }

@@ -16,7 +16,6 @@ public class UserinfoController : Controller
     public UserinfoController(UserManager<AppUser> userManager)
         => _userManager = userManager;
 
-    //
     // GET: /api/userinfo
     [Authorize(AuthenticationSchemes = OpenIddictServerAspNetCoreDefaults.AuthenticationScheme)]
     [HttpGet("~/connect/userinfo"), HttpPost("~/connect/userinfo"), Produces("application/json")]

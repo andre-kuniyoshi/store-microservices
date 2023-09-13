@@ -33,6 +33,7 @@ namespace Identity.Infra.Openiddict
                     options
                         .SetTokenEndpointUris("/connect/token")
                         .SetAuthorizationEndpointUris("/connect/authorize")
+                        .SetLogoutEndpointUris("connect/logout")
                         .SetIntrospectionEndpointUris("/connect/token/introspect")
                         .SetUserinfoEndpointUris("/connect/userinfo");
 
@@ -49,6 +50,7 @@ namespace Identity.Infra.Openiddict
                     options
                         .UseAspNetCore()
                         .EnableTokenEndpointPassthrough()
+                        .EnableLogoutEndpointPassthrough()
                         .EnableAuthorizationEndpointPassthrough()
                         .EnableUserinfoEndpointPassthrough();
                 })

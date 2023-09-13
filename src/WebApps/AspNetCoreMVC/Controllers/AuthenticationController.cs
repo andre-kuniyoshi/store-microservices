@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
+﻿using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using OpenIddict.Abstractions;
 using OpenIddict.Client.AspNetCore;
@@ -112,8 +107,9 @@ public class AuthenticationController : Controller
         // By default, OpenIddict will automatically try to map the email/name and name identifier claims from
         // their standard OpenID Connect or provider-specific equivalent, if available. If needed, additional
         // claims can be resolved from the external identity and copied to the final authentication cookie.
-        identity.SetClaim(ClaimTypes.Email, result.Principal.GetClaim(ClaimTypes.Email))
-                .SetClaim(ClaimTypes.Name, result.Principal.GetClaim(ClaimTypes.Name))
+        var x = result.Principal.GetClaim(ClaimTypes.NameIdentifier);
+        identity.SetClaim(ClaimTypes.Email, result.Principal.GetClaim(Claims.Email))
+                .SetClaim(ClaimTypes.Name, result.Principal.GetClaim(Claims.Name))
                 .SetClaim(ClaimTypes.NameIdentifier, result.Principal.GetClaim(ClaimTypes.NameIdentifier));
 
         // Preserve the registration identifier to be able to resolve it later.

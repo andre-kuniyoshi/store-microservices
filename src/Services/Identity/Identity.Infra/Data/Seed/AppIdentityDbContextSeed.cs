@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.DependencyInjection;
@@ -9,6 +8,7 @@ using Identity.Infra.Data.Context;
 using Identity.Application.Domain;
 using OpenIddict.Abstractions;
 using static OpenIddict.Abstractions.OpenIddictConstants;
+using Microsoft.Extensions.Configuration;
 
 namespace Identity.Infra.Data.Seed
 {
@@ -18,6 +18,7 @@ namespace Identity.Infra.Data.Seed
         {
             int retryForAvailability = retry.Value;
             var scopedFactory = webApp.Services.GetService<IServiceScopeFactory>();
+            
 
             using (var scope = scopedFactory.CreateScope())
             {
@@ -36,12 +37,12 @@ namespace Identity.Infra.Data.Seed
                 {
                     loggerContext.LogInformation("Starting migration database associated with context {DbContextName}", nameOrderContext);
 
+                    Thread.Sleep(2000);
                     context.Database.Migrate();
-
                     //await SeedRolesAsync(roleManager);
 
                     await SeedUsersAsync(userManager);
-                    await SeedApplicationAsync(applicationManager);
+                    await SeedApplicationAsync(applicationManager, webApp);
 
                     //await SeedUserClaimsAsync(userManager);
 
@@ -66,8 +67,18 @@ namespace Identity.Infra.Data.Seed
             }
         }
 
-        private static async Task SeedApplicationAsync(IOpenIddictApplicationManager applicationManager)
+        private static async Task SeedApplicationAsync(IOpenIddictApplicationManager applicationManager, WebApplication webApp)
         {
+            var redirectURI = webApp.Configuration.GetValue<string>("OpeniddicApplications:AspNetMvc:RedirectUri");
+            Console.WriteLine("Config: " + redirectURI);
+            var postLogoutRedirectUri = webApp.Configuration.GetValue<string>("OpeniddicApplications:AspNetMvc:PostLogoutRedirectUri");
+            Console.WriteLine("Config: " + postLogoutRedirectUri);
+
+            //var redirectURI = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development" ? "http://localhost:5021/callback/login/local" : "http://localhost:8021/callback/login/local";
+            //Console.WriteLine("Config: " + redirectURI);
+            //var postLogoutRedirectUri = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development" ? "http://localhost:5021/callback/logout/local" : "http://localhost:8021/callback/logout/local";
+            //Console.WriteLine("Config: " + postLogoutRedirectUri);
+
             if (await applicationManager.FindByClientIdAsync("c05471b2-c723-4232-8c1a-244c1fc2a4af") is null)
             {
                 await applicationManager.CreateAsync(new OpenIddictApplicationDescriptor
@@ -78,11 +89,11 @@ namespace Identity.Infra.Data.Seed
                     DisplayName = "AspNetMVC",
                     RedirectUris =
                     {
-                        new Uri("https://localhost:5021/callback/login/local")
+                        new Uri(redirectURI)
                     },
                     PostLogoutRedirectUris =
                     {
-                        new Uri("https://localhost:5021/callback/logout/local")
+                        new Uri(postLogoutRedirectUri)
                     },
                     Permissions =
                     {

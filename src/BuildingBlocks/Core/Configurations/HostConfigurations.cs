@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
 using Serilog;
 using Serilog.Sinks.Elasticsearch;
 using System.Reflection;
@@ -7,6 +8,20 @@ namespace Core.Configurations
 {
     public static class HostConfigurations
     {
+        public static IHostBuilder ConfigureAppSettings(this IHostBuilder host)
+        {
+            host.ConfigureAppConfiguration((ctx, builder) =>
+            {
+                var enviroment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+                builder.AddJsonFile("appsettings.json", false, true);
+                builder.AddJsonFile($"appsettings.{enviroment}.json", true, true);
+
+                builder.AddEnvironmentVariables();
+            });
+
+            return host;
+        }
+
         public static void ConfigureSerilog()
         {
             var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");

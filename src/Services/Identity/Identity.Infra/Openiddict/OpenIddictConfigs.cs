@@ -1,4 +1,5 @@
 ﻿using Identity.Infra.Data.Context;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using static OpenIddict.Abstractions.OpenIddictConstants;
@@ -7,7 +8,7 @@ namespace Identity.Infra.Openiddict
 {
     public static class OpenIdDictConfigs
     {
-        public static IServiceCollection AddOpenIddictConfigs(this IServiceCollection services)
+        public static IServiceCollection AddOpenIddictConfigs(this IServiceCollection services, IConfiguration config)
         {
             services.AddOpenIddict()
                 // Register the OpenIddict core components.
@@ -23,8 +24,8 @@ namespace Identity.Infra.Openiddict
                 // Register the OpenIddict server components.
                 .AddServer(options =>
                 {
-                    options.AddEncryptionKey(new SymmetricSecurityKey(
-                         Convert.FromBase64String("DRjd/GnduI3Efzen9V9BvbNUfc/VKgXltV7Kbk9sMkY=")));
+                    //options.AddEncryptionKey(new SymmetricSecurityKey(
+                    //     Convert.FromBase64String("DRjd/GnduI3Efzen9V9BvbNUfc/VKgXltV7Kbk9sMkY=")));
 
                     options
                         .AllowAuthorizationCodeFlow()
@@ -49,6 +50,7 @@ namespace Identity.Infra.Openiddict
                     // Register the ASP.NET Core host and configure the ASP.NET Core-specific options.
                     options
                         .UseAspNetCore()
+                        .DisableTransportSecurityRequirement()
                         .EnableTokenEndpointPassthrough()
                         .EnableLogoutEndpointPassthrough()
                         .EnableAuthorizationEndpointPassthrough()

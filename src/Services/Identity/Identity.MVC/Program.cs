@@ -1,5 +1,6 @@
 using Identity.Infra.Data.Seed;
 using Identity.Infra.Extensions;
+using Core.Configurations;
 
 namespace Identity.MVC
 {
@@ -7,7 +8,24 @@ namespace Identity.MVC
     {
         public static void Main(string[] args)
         {
+            var enviroment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+
             var builder = WebApplication.CreateBuilder(args);
+
+            var env = builder.Environment.EnvironmentName;
+
+            Console.WriteLine("[ENV 1]: " + enviroment);
+            Console.WriteLine("[ENV 2]: " + env);
+
+            var configuration = new ConfigurationBuilder()
+                .SetBasePath(builder.Environment.ContentRootPath)
+                .AddJsonFile("appsettings.json", false, true)
+                .AddJsonFile($"appsettings.{enviroment}.json", true, true)
+                .AddEnvironmentVariables()
+                .Build();
+
+            builder.Configuration.AddConfiguration(configuration);
+            //builder.Host.ConfigureAppSettings();
 
             builder.Services.AddInfraLayer(builder.Configuration);
             // Add services to the container.
@@ -25,7 +43,7 @@ namespace Identity.MVC
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseRouting();

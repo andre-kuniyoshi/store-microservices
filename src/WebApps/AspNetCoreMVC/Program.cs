@@ -2,6 +2,7 @@ using AspNetCoreMVC.Configurations;
 using AspNetCoreMVC.Data;
 using Microsoft.EntityFrameworkCore;
 using Quartz;
+using Core.Configurations;
 
 namespace AspNetCoreMVC
 {
@@ -10,7 +11,7 @@ namespace AspNetCoreMVC
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-
+            builder.Host.ConfigureAppSettings();
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
@@ -39,7 +40,7 @@ namespace AspNetCoreMVC
                 options.UseOpenIddict();
             });
 
-            builder.Services.AddOpeniddictConfigurations();
+            builder.Services.AddOpeniddictConfigurations(builder.Configuration);
 
             builder.Services.AddHttpClient();
 
@@ -55,7 +56,7 @@ namespace AspNetCoreMVC
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseRouting();

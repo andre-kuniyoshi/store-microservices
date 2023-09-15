@@ -5,7 +5,8 @@
       "commandVersion": "1.0",
       "serviceActions": {
         "aspnetcoremvc": "StartDebugging",
-        "register.api": "StartDebugging"
+        "register.api": "StartDebugging",
+        "identity.mvc": "StartDebugging"
       }
     }
   }

@@ -28,6 +28,12 @@ services:
   rabbitmq:
     image: rabbitmq:3-management-alpine
 
+  identity.mvc:
+    image: ${DOCKER_REGISTRY-}identitymvc
+    build:
+      context: ../src
+      dockerfile: Services/Identity/Identity.MVC/Dockerfile
+
   register.api:
     image: ${DOCKER_REGISTRY-}registerapi
     build:
@@ -81,6 +87,12 @@ services:
     build:
       context: ../src
       dockerfile: WebApps/AspNetRazor/Dockerfile
+
+  aspnetcoremvc:
+    image: ${DOCKER_REGISTRY-}aspnetcoremvc
+    build:
+      context: ../src
+      dockerfile: WebApps/AspNetCoreMVC/Dockerfile
 
 volumes:
   mongo_data:

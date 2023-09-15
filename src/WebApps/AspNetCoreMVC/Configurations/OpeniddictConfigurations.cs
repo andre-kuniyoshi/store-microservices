@@ -6,7 +6,7 @@ namespace AspNetCoreMVC.Configurations
 {
     public static class OpeniddictConfigurations
     {
-        public static IServiceCollection AddOpeniddictConfigurations(this IServiceCollection services)
+        public static IServiceCollection AddOpeniddictConfigurations(this IServiceCollection services, IConfiguration config)
         {
             services.AddOpenIddict()
 
@@ -40,6 +40,7 @@ namespace AspNetCoreMVC.Configurations
 
                  // Register the ASP.NET Core host and configure the ASP.NET Core-specific options.
                  options.UseAspNetCore()
+                        .DisableTransportSecurityRequirement()
                         .EnableStatusCodePagesIntegration()
                         .EnableRedirectionEndpointPassthrough()
                         .EnablePostLogoutRedirectionEndpointPassthrough();
@@ -50,10 +51,12 @@ namespace AspNetCoreMVC.Configurations
                  options.UseSystemNetHttp()
                         .SetProductInformation(typeof(Program).Assembly);
 
+                 var issuer = config.GetSection("OpeniddictConfigs:Issuer").Value;
+                 Console.WriteLine("Issuer: " + issuer);
                  // Add a client registration matching the client application definition in the server project.
                  options.AddRegistration(new OpenIddictClientRegistration
                  {
-                     Issuer = new Uri("https://localhost:5000/", UriKind.Absolute),
+                     Issuer = new Uri(issuer!, UriKind.Absolute),
 
                      ClientId = "c05471b2-c723-4232-8c1a-244c1fc2a4af",
                      ClientSecret = "aspnetmvc-secret",

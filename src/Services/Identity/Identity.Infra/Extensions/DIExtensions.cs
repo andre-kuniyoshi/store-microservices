@@ -39,7 +39,7 @@ namespace Identity.Infra.Extensions
             // Register the Quartz.NET service and configure it to block shutdown until jobs are complete.
             services.AddQuartzHostedService(options => options.WaitForJobsToComplete = true);
 
-            services.AddOpenIddictConfigs();
+            services.AddOpenIddictConfigs(configuration);
 
             return services;
         }

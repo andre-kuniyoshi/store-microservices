@@ -86,6 +86,16 @@ services:
       - "5672:5672"
       - "15672:15672"
 
+  identity.mvc:
+    container_name: identity.mvc
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Docker
+      - "ConnectionStrings:IdentityDB=Server=shop-sqlserver;Database=IdentityDB;User Id=sa;Password=Admin@1234;Encrypt=False;Trusted_Connection=False;"
+    depends_on:
+      - sqlserverdb
+    ports:
+      - "8000:80"
+
   register.api:
     container_name: register.api
     environment:
@@ -127,7 +137,6 @@ services:
     ports:
       - "8004:80"
 
-
   discount.grpc:
     container_name: discount.grpc
     environment:
@@ -164,7 +173,6 @@ services:
     ports:
       - "8010:80"
 
-
   shopping.aggregator:
     container_name: shopping.aggregator
     environment:
@@ -179,7 +187,6 @@ services:
     ports:
       - "8011:80"
 
-
   aspnetrazor:
     container_name: aspnetrazor
     environment:
@@ -193,3 +200,13 @@ services:
         - order.api
     ports:
         - "8020:80"
+
+  aspnetcoremvc:
+    container_name: aspnetcoremvc
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Docker
+      - "ConnectionStrings:OpenIdMvcDB=Server=shop-sqlserver;Database=OpenIdMvcDB;User Id=sa;Password=Admin@1234;Encrypt=False;Trusted_Connection=False;"
+    depends_on:
+      - sqlserverdb
+    ports:
+      - "8021:80"

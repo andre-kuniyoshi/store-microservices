@@ -1,7 +1,20 @@
 version: '3.4'
 name: store-microsservices
+
+networks:
+  store-net:
+    name: store-net
+    driver: bridge
+
 services:
 
+####### PROXIES #########
+  traefik:
+    image: "traefik:v2.10"
+    networks: 
+      - store-net
+
+####### OBESERVABILITY #########
   # elasticsearch:
   #   image: docker.elastic.co/elasticsearch/elasticsearch
   # kibana:
@@ -9,91 +22,141 @@ services:
 
   portainer:
     image: portainer/portainer-ce
+    networks:
+      - store-net
+ 
+  # pgadmin:
+  #   image: dpage/pgadmin4
+  #   networks:
+  #     - store-net
 
-  pgadmin:
-    image: dpage/pgadmin4
-
+####### DATABASES #########
   mongodb:
     image: mongo
+    networks:
+      - store-net
 
   redisdb:
     image: redis:alpine
+    networks:
+      - store-net
 
   postgresdb:
     image: postgres
+    networks:
+      - store-net
 
   sqlserverdb:
     image: mcr.microsoft.com/mssql/server:2022-latest
+    networks:
+      - store-net
 
+####### MESSAGE BROKERS #########
   rabbitmq:
     image: rabbitmq:3-management-alpine
+    networks:
+      - store-net
 
-  identity.mvc:
+####### SERVICES #########
+  identity.localhost:
     image: ${DOCKER_REGISTRY-}identitymvc
     build:
       context: ../src
       dockerfile: Services/Identity/Identity.MVC/Dockerfile
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.identity.rule=Host(`identity.localhost`)"
+      - "traefik.http.routers.identity.entrypoints=web"
+    networks:
+      - store-net
 
   register.api:
     image: ${DOCKER_REGISTRY-}registerapi
     build:
         context: ../src
         dockerfile: Services/Register/Register.API/Dockerfile
+    networks:
+      - store-net
 
   catalog.api:
     image: ${DOCKER_REGISTRY-}catalogapi
     build:
       context: ../src
       dockerfile: Services/Catalog/Catalog.API/Dockerfile
+    networks:
+      - store-net
 
   basket.api:
     image: ${DOCKER_REGISTRY-}basketapi
     build:
       context: ../src
       dockerfile: Services/Basket/Basket.API/Dockerfile
+    networks:
+      - store-net
 
   discount.api:
     image: ${DOCKER_REGISTRY-}discountapi
     build:
       context: ../src
       dockerfile: Services/Discount/Discount.API/Dockerfile
+    networks:
+      - store-net
 
   discount.grpc:
     image: ${DOCKER_REGISTRY-}discountgrpc
     build:
       context: ../src
       dockerfile: Services/Discount/Discount.Grpc/Dockerfile
+    networks:
+      - store-net
 
   order.api:
     image: ${DOCKER_REGISTRY-}orderapi
     build:
       context: ../src
       dockerfile: Services/Order/Order.API/Dockerfile
+    networks:
+      - store-net
 
+####### GATEWAYS #########
   ocelotapigateway:
     image: ${DOCKER_REGISTRY-}ocelotapigateway
     build:
       context: ../src
       dockerfile: ApiGateways/OcelotApiGateway/Dockerfile
+    networks:
+      - store-net
 
   shopping.aggregator:
     image: ${DOCKER_REGISTRY-}shoppingaggregator
     build:
       context: ../src
       dockerfile: ApiGateways/Shopping.Aggregator/Dockerfile
+    networks:
+      - store-net
 
+####### APPS #########
   aspnetrazor:
     image: ${DOCKER_REGISTRY-}aspnetrazor
     build:
       context: ../src
       dockerfile: WebApps/AspNetRazor/Dockerfile
+    networks:
+      - store-net
 
-  aspnetcoremvc:
+  aspnetcoremvc.localhost:
     image: ${DOCKER_REGISTRY-}aspnetcoremvc
     build:
       context: ../src
       dockerfile: WebApps/AspNetCoreMVC/Dockerfile
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.aspnetcoremvc.rule=Host(`aspnetcoremvc.localhost`)"
+      - "traefik.http.routers.aspnetcoremvc.entrypoints=web"
+    networks:
+      - store-net
 
+####### VOLUMES #########
 volumes:
   mongo_data:
   postgres_data:

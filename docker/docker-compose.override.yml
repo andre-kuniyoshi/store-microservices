@@ -1,6 +1,25 @@
 version: '3.4'
 
 services:
+
+####### PROXIES #########
+  traefik:
+    container_name: "traefik"
+    command:
+      #- "--log.level=DEBUG"
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+    ports:
+      - "80:80"
+      - "8080:8080"
+    depends_on:
+      - identity.localhost
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+
+####### OBESERVABILITY #########
   # elasticsearch:
   #   container_name: elasticsearch
   #   environment:
@@ -22,27 +41,29 @@ services:
   #   ports:
   #       - "5601:5601"
 
+
   portainer:
     container_name: portainer
     restart: always
     ports:
-      - "8080:8000"
+      #- "8080:8000"
       - "9000:9000"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - portainer_data:/data
 
-  pgadmin:
-    container_name: pgadmin
-    environment:
-      - PGADMIN_DEFAULT_EMAIL=admin@admin.com
-      - PGADMIN_DEFAULT_PASSWORD=admin@1234
-    restart: always
-    ports:
-      - "5050:80"
-    volumes:
-      - pgadmin_data:/root/.pgadmin
+  # pgadmin:
+  #   container_name: pgadmin
+  #   environment:
+  #     - PGADMIN_DEFAULT_EMAIL=admin@admin.com
+  #     - PGADMIN_DEFAULT_PASSWORD=admin@1234
+  #   restart: always
+  #   ports:
+  #     - "5050:80"
+  #   volumes:
+  #     - pgadmin_data:/root/.pgadmin
 
+  ####### DATABASES #########
   mongodb:
     container_name: shop-mongodb
     restart: always
@@ -79,6 +100,7 @@ services:
     ports:
       - "1433:1433"
 
+####### MESSAGE BROKERS #########
   rabbitmq:
     container_name: rabbitmq-broker
     restart: always
@@ -86,8 +108,9 @@ services:
       - "5672:5672"
       - "15672:15672"
 
-  identity.mvc:
-    container_name: identity.mvc
+####### SERVICES #########
+  identity.localhost:
+    container_name: identity.localhost
     environment:
       - ASPNETCORE_ENVIRONMENT=Docker
       - "ConnectionStrings:IdentityDB=Server=shop-sqlserver;Database=IdentityDB;User Id=sa;Password=Admin@1234;Encrypt=False;Trusted_Connection=False;"
@@ -161,6 +184,7 @@ services:
     ports:
       - "8005:80"
 
+####### GATEWAYS #########
   ocelotapigateway:
     container_name: ocelotapigateway
     environment:
@@ -187,6 +211,7 @@ services:
     ports:
       - "8011:80"
 
+####### APPS #########
   aspnetrazor:
     container_name: aspnetrazor
     environment:
@@ -201,8 +226,8 @@ services:
     ports:
         - "8020:80"
 
-  aspnetcoremvc:
-    container_name: aspnetcoremvc
+  aspnetcoremvc.localhost:
+    container_name: aspnetcoremvc.localhost
     environment:
       - ASPNETCORE_ENVIRONMENT=Docker
       - "ConnectionStrings:OpenIdMvcDB=Server=shop-sqlserver;Database=OpenIdMvcDB;User Id=sa;Password=Admin@1234;Encrypt=False;Trusted_Connection=False;"

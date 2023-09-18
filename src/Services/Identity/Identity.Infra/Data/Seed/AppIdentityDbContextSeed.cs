@@ -70,14 +70,7 @@ namespace Identity.Infra.Data.Seed
         private static async Task SeedApplicationAsync(IOpenIddictApplicationManager applicationManager, WebApplication webApp)
         {
             var redirectURI = webApp.Configuration.GetValue<string>("OpeniddicApplications:AspNetMvc:RedirectUri");
-            Console.WriteLine("Config: " + redirectURI);
             var postLogoutRedirectUri = webApp.Configuration.GetValue<string>("OpeniddicApplications:AspNetMvc:PostLogoutRedirectUri");
-            Console.WriteLine("Config: " + postLogoutRedirectUri);
-
-            //var redirectURI = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development" ? "http://localhost:5021/callback/login/local" : "http://localhost:8021/callback/login/local";
-            //Console.WriteLine("Config: " + redirectURI);
-            //var postLogoutRedirectUri = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development" ? "http://localhost:5021/callback/logout/local" : "http://localhost:8021/callback/logout/local";
-            //Console.WriteLine("Config: " + postLogoutRedirectUri);
 
             if (await applicationManager.FindByClientIdAsync("c05471b2-c723-4232-8c1a-244c1fc2a4af") is null)
             {

@@ -1,32 +1,39 @@
 ﻿using AspNetCoreMVC.Models;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using OpenIddict.Client.AspNetCore;
 using System.Diagnostics;
+using System.Net.Http.Headers;
 
 namespace AspNetCoreMVC.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly IHttpClientFactory _httpClientFactory;
 
-        public HomeController(ILogger<HomeController> logger)
-        {
-            _logger = logger;
-        }
+        public HomeController(IHttpClientFactory httpClientFactory)
+            => _httpClientFactory = httpClientFactory;
 
-        public IActionResult Index()
-        {
-            return View();
-        }
+        [HttpGet("~/")]
+        public ActionResult Index() => View();
 
-        public IActionResult Privacy()
+        [Authorize, HttpPost("~/")]
+        public async Task<ActionResult> Index(CancellationToken cancellationToken)
         {
-            return View();
-        }
+            // For scenarios where the default authentication handler configured in the ASP.NET Core
+            // authentication options shouldn't be used, a specific scheme can be specified here.
+            var token = await HttpContext.GetTokenAsync(OpenIddictClientAspNetCoreConstants.Tokens.BackchannelAccessToken);
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            using var client = _httpClientFactory.CreateClient();
+
+            using var request = new HttpRequestMessage(HttpMethod.Get, "http://localhost:5001/Test/api");
+            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+            using var response = await client.SendAsync(request, cancellationToken);
+            response.EnsureSuccessStatusCode();
+
+            return View(model: await response.Content.ReadAsStringAsync(cancellationToken));
         }
     }
 }

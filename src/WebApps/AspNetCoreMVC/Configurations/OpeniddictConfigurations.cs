@@ -52,7 +52,7 @@ namespace AspNetCoreMVC.Configurations
                         .SetProductInformation(typeof(Program).Assembly);
 
                  var issuer = config.GetSection("OpeniddictConfigs:Issuer").Value;
-                 Console.WriteLine("Issuer: " + issuer);
+
                  // Add a client registration matching the client application definition in the server project.
                  options.AddRegistration(new OpenIddictClientRegistration
                  {

@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Serilog;
 using Serilog.Sinks.Elasticsearch;
@@ -13,6 +14,7 @@ namespace Core.Configurations
             host.ConfigureAppConfiguration((ctx, builder) =>
             {
                 var enviroment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+                builder.SetBasePath(ctx.HostingEnvironment.ContentRootPath);
                 builder.AddJsonFile("appsettings.json", false, true);
                 builder.AddJsonFile($"appsettings.{enviroment}.json", true, true);
 
@@ -20,6 +22,22 @@ namespace Core.Configurations
             });
 
             return host;
+        }
+
+        public static WebApplicationBuilder ConfigureAppSettings(this WebApplicationBuilder webAppBuilder)
+        {
+            var enviroment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+
+            var configuration = new ConfigurationBuilder()
+                .SetBasePath(webAppBuilder.Environment.ContentRootPath)
+                .AddJsonFile("appsettings.json", false, true)
+                .AddJsonFile($"appsettings.{enviroment}.json", true, true)
+                .AddEnvironmentVariables()
+                .Build();
+
+            webAppBuilder.Configuration.AddConfiguration(configuration);
+
+            return webAppBuilder;
         }
 
         public static void ConfigureSerilog()

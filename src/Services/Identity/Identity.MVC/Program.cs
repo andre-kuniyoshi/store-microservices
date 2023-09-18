@@ -12,20 +12,7 @@ namespace Identity.MVC
 
             var builder = WebApplication.CreateBuilder(args);
 
-            var env = builder.Environment.EnvironmentName;
-
-            Console.WriteLine("[ENV 1]: " + enviroment);
-            Console.WriteLine("[ENV 2]: " + env);
-
-            var configuration = new ConfigurationBuilder()
-                .SetBasePath(builder.Environment.ContentRootPath)
-                .AddJsonFile("appsettings.json", false, true)
-                .AddJsonFile($"appsettings.{enviroment}.json", true, true)
-                .AddEnvironmentVariables()
-                .Build();
-
-            builder.Configuration.AddConfiguration(configuration);
-            //builder.Host.ConfigureAppSettings();
+            builder.ConfigureAppSettings();
 
             builder.Services.AddInfraLayer(builder.Configuration);
             // Add services to the container.

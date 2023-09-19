@@ -27,7 +27,7 @@ namespace AspNetCoreMVC.Controllers
 
             using var client = _httpClientFactory.CreateClient();
 
-            using var request = new HttpRequestMessage(HttpMethod.Get, "http://localhost:5001/Test/api");
+            using var request = new HttpRequestMessage(HttpMethod.Get, "http://localhost:5010/Test/api");
             request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
             using var response = await client.SendAsync(request, cancellationToken);

@@ -7,7 +7,7 @@ using System.Net;
 namespace Core.Controllers
 {
     [ApiController]
-    [Authorize(AuthenticationSchemes = OpenIddictValidationAspNetCoreDefaults.AuthenticationScheme)]
+    //[Authorize(AuthenticationSchemes = OpenIddictValidationAspNetCoreDefaults.AuthenticationScheme)]
     public class TestController : ControllerBase
     {
         public TestController()

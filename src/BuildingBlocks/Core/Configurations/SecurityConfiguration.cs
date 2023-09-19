@@ -18,11 +18,10 @@ namespace Core.Configurations
                 {
 
                     // Register the ASP.NET Core host.
+                    options.SetIssuer(new Uri(issuer));
+                    options.UseSystemNetHttp();
                     options.UseAspNetCore();
 
-                    options.UseSystemNetHttp();
-
-                    options.SetIssuer(issuer);
 
                 });
 

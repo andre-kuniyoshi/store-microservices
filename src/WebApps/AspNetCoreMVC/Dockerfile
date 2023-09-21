@@ -10,7 +10,7 @@ COPY ["BuildingBlocks/Core/Core.csproj", "BuildingBlocks/Core/"]
 RUN dotnet restore "WebApps/AspNetCoreMVC/AspNetCoreMVC.csproj"
 COPY . .
 WORKDIR "/src/WebApps/AspNetCoreMVC"
-RUN dotnet build "AspNetCoreMVC.csproj" -c Release -o /app/build
+#RUN dotnet build "AspNetCoreMVC.csproj" -c Release -o /app/build
 
 FROM build AS publish
 RUN dotnet publish "AspNetCoreMVC.csproj" -c Release -o /app/publish /p:UseAppHost=false

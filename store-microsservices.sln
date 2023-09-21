@@ -81,6 +81,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Identity.Infra", "src\Servi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Identity.MVC", "src\Services\Identity\Identity.MVC\Identity.MVC.csproj", "{DB3A9733-6F38-49B6-B676-918FDA0DFD70}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Keys", "Keys", "{850442EB-B9BF-4A0F-A34F-345956CA6AE4}"
+	ProjectSection(SolutionItems) = preProject
+		Keys\private-key.pem = Keys\private-key.pem
+		Keys\public-key.pem = Keys\public-key.pem
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -222,6 +228,7 @@ Global
 		{24C1D0FC-D06B-4E4E-A602-2B786FE075CC} = {1008D1F8-98B7-4082-97A0-D35FA16DE084}
 		{87B34A44-E284-482E-9C59-CD79FA2E2F18} = {1008D1F8-98B7-4082-97A0-D35FA16DE084}
 		{DB3A9733-6F38-49B6-B676-918FDA0DFD70} = {1008D1F8-98B7-4082-97A0-D35FA16DE084}
+		{850442EB-B9BF-4A0F-A34F-345956CA6AE4} = {BD439EB7-ED82-4425-98C4-A1E0336FC1DF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AF6217DF-5229-44C5-9837-CD78DBB9A183}

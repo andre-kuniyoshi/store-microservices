@@ -12,7 +12,7 @@ COPY ["BuildingBlocks/Core/Core.csproj", "BuildingBlocks/Core/"]
 RUN dotnet restore "Services/Identity/Identity.MVC/Identity.MVC.csproj"
 COPY . .
 WORKDIR "/src/Services/Identity/Identity.MVC"
-RUN dotnet build "Identity.MVC.csproj" -c Release -o /app/build
+#RUN dotnet build "Identity.MVC.csproj" -c Release -o /app/build
 
 FROM build AS publish
 RUN dotnet publish "Identity.MVC.csproj" -c Release -o /app/publish /p:UseAppHost=false

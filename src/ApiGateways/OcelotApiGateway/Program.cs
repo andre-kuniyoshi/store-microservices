@@ -15,37 +15,15 @@ namespace OcelotApiGateway
         {
             var builder = WebApplication.CreateBuilder(args);
             builder.ConfigureAppSettings();
+
             builder.Configuration
                 .AddJsonFile($"ocelot.{builder.Environment.EnvironmentName}.json", optional: true, reloadOnChange: true);
 
-            //
-            var issuer = builder.Configuration.GetValue<string>("OpeniddictConfigs:Issuer");
+            builder.Services.AddRSAPublicKey(builder.Configuration);
+            builder.Services.AddSecurityConfigs(builder.Configuration);
 
-            //var publicKey = Convert.ToBase64String(rsa.ExportRSAPublicKey());
-            //var privateKey = Convert.ToBase64String(rsa.ExportRSAPrivateKey());
-
-            //var key = new RsaSecurityKey(RSA.Create(2048))
-            //{
-            //    KeyId = Guid.NewGuid().ToString()
-            //};
-
-            if (String.IsNullOrEmpty(issuer)) throw new ArgumentNullException("Issuer must be set in appsettings");
-            builder.Services.AddAuthentication(OpenIddictValidationAspNetCoreDefaults.AuthenticationScheme).AddJwtBearer();
-
-            builder.Services.AddOpenIddict()
-                .AddValidation(options =>
-                {
-
-                    // Register the ASP.NET Core host.
-                    options.SetIssuer(issuer);
-                    options.UseSystemNetHttp();
-                    options.UseAspNetCore();
-
-
-                });
-
-            builder.Services.AddOcelot().AddCacheManager(settings => settings.WithDictionaryHandle());
-            //
+            builder.Services.AddOcelot();
+            
             builder.Logging.AddConsole();
             builder.Logging.AddDebug();
 
@@ -58,8 +36,11 @@ namespace OcelotApiGateway
                 app.UseRouting();
                 app.UseEndpoints(endpoints => endpoints.MapControllers());
             }
-              
+
             await app.UseOcelot();
+            app.UseAuthentication();
+            app.UseAuthorization();
+
 
             app.Run();
         }

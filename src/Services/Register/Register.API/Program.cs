@@ -17,13 +17,14 @@ namespace Register.API
 
             builder.Services.AddAutoMapper(typeof(Program));
 
-            builder.Services.AddControllers().AddTestController();
+            builder.Services.AddControllers();
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
-            builder.Services.AddSecurityConfigs(builder.Configuration);
+            //builder.Services.AddRSAPublicKey(builder.Configuration);
+            //builder.Services.AddSecurityConfigs(builder.Configuration);
 
             var app = builder.Build();
 
@@ -39,6 +40,7 @@ namespace Register.API
             app.UseAuthentication();
             app.UseAuthorization();
 
+            app.UseTokenParser();
 
             app.MapControllers();
 

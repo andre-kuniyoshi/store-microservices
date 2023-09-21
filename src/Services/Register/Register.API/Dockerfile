@@ -12,7 +12,7 @@ COPY ["Services/Register/Register.Infra/Register.Infra.csproj", "Services/Regist
 RUN dotnet restore "Services/Register/Register.API/Register.API.csproj"
 COPY . .
 WORKDIR "/src/Services/Register/Register.API"
-RUN dotnet build "Register.API.csproj" -c Release -o /app/build
+#RUN dotnet build "Register.API.csproj" -c Release -o /app/build
 
 FROM build AS publish
 RUN dotnet publish "Register.API.csproj" -c Release -o /app/publish /p:UseAppHost=false

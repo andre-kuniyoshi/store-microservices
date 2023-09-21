@@ -2,7 +2,7 @@
   "Routes": [
     //Register API
     {
-      "DownstreamPathTemplate": "/api/v1/Register",
+      "DownstreamPathTemplate": "/test/api",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -12,7 +12,11 @@
       ],
       "UpstreamPathTemplate": "/Register",
       "UpstreamHttpMethod": [ "GET", "POST", "PUT" ],
-      "FileCacheOptions": { "TtlSeconds": 30 }
+      "FileCacheOptions": { "TtlSeconds": 30 },
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
     },
     //Catalog API
     {

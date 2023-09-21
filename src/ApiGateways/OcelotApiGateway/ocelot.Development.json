@@ -14,7 +14,7 @@
       "UpstreamHttpMethod": [ "GET", "POST", "PUT" ],
       "FileCacheOptions": { "TtlSeconds": 30 },
       "AuthenticationOptions": {
-        "AuthenticationProviderKey": "OpenIddict.Validation.AspNetCore",
+        "AuthenticationProviderKey": "Bearer",
         "AllowedScopes": []
       }
     },

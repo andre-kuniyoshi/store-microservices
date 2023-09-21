@@ -14,7 +14,7 @@ COPY ["Services/Order/Order.Infra/Order.Infra.csproj", "Services/Order/Order.Inf
 RUN dotnet restore "Services/Order/Order.API/Order.API.csproj"
 COPY . .
 WORKDIR "/src/Services/Order/Order.API"
-RUN dotnet build "Order.API.csproj" -c Release -o /app/build
+#RUN dotnet build "Order.API.csproj" -c Release -o /app/build
 
 FROM build AS publish
 RUN dotnet publish "Order.API.csproj" -c Release -o /app/publish /p:UseAppHost=false

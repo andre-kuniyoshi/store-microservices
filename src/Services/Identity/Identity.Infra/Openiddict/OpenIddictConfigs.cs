@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using static OpenIddict.Abstractions.OpenIddictConstants;
+using Core.Configurations;
 
 namespace Identity.Infra.Openiddict
 {
@@ -24,8 +25,6 @@ namespace Identity.Infra.Openiddict
                 // Register the OpenIddict server components.
                 .AddServer(options =>
                 {
-                    //options.AddEncryptionKey(new SymmetricSecurityKey(
-                    //     Convert.FromBase64String("DRjd/GnduI3Efzen9V9BvbNUfc/VKgXltV7Kbk9sMkY=")));
 
                     options
                         .AllowAuthorizationCodeFlow()
@@ -38,11 +37,13 @@ namespace Identity.Infra.Openiddict
                         .SetIntrospectionEndpointUris("/connect/token/introspect")
                         .SetUserinfoEndpointUris("/connect/userinfo");
 
+                    RsaSecurityKey rsa = services.BuildServiceProvider().GetRequiredService<RsaSecurityKey>();
                     // Encryption and signing of tokens
                     options
                         .AddEphemeralEncryptionKey()
-                        .AddEphemeralSigningKey()
-                        .DisableAccessTokenEncryption();
+                        //.AddEphemeralSigningKey()
+                        .DisableAccessTokenEncryption()
+                        .AddSigningKey(rsa);
 
                     // Register scopes (permissions)
                     options.RegisterScopes(Scopes.Email, Scopes.Profile, Scopes.Roles, "api");

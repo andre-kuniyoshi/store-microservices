@@ -11,7 +11,7 @@ COPY ["BuildingBlocks/EventBus.Messages/EventBus.Messages.csproj", "BuildingBloc
 RUN dotnet restore "Services/Basket/Basket.API/Basket.API.csproj"
 COPY . .
 WORKDIR "/src/Services/Basket/Basket.API"
-RUN dotnet build "Basket.API.csproj" -c Release -o /app/build
+#RUN dotnet build "Basket.API.csproj" -c Release -o /app/build
 
 FROM build AS publish
 RUN dotnet publish "Basket.API.csproj" -c Release -o /app/publish /p:UseAppHost=false

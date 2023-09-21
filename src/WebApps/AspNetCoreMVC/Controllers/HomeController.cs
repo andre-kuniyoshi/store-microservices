@@ -11,9 +11,12 @@ namespace AspNetCoreMVC.Controllers
     public class HomeController : Controller
     {
         private readonly IHttpClientFactory _httpClientFactory;
-
-        public HomeController(IHttpClientFactory httpClientFactory)
-            => _httpClientFactory = httpClientFactory;
+        private readonly IConfiguration _config;
+        public HomeController(IHttpClientFactory httpClientFactory, IConfiguration config)
+        {
+            _httpClientFactory = httpClientFactory;
+            _config = config;
+        }
 
         [HttpGet("~/")]
         public ActionResult Index() => View();
@@ -25,9 +28,10 @@ namespace AspNetCoreMVC.Controllers
             // authentication options shouldn't be used, a specific scheme can be specified here.
             var token = await HttpContext.GetTokenAsync(OpenIddictClientAspNetCoreConstants.Tokens.BackchannelAccessToken);
 
+            Console.WriteLine("Token: " + token);
             using var client = _httpClientFactory.CreateClient();
 
-            using var request = new HttpRequestMessage(HttpMethod.Get, "http://localhost:5010/Test/api");
+            using var request = new HttpRequestMessage(HttpMethod.Get, $"{_config.GetValue<string>("ApiSettings:GatewayAddress")}/Register");
             request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
             using var response = await client.SendAsync(request, cancellationToken);

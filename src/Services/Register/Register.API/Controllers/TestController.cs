@@ -1,13 +1,13 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using OpenIddict.Validation.AspNetCore;
 using System.Net;
 
-namespace Core.Controllers
+
+namespace Register.API.Controllers
 {
     [ApiController]
     //[Authorize(AuthenticationSchemes = OpenIddictValidationAspNetCoreDefaults.AuthenticationScheme)]
+    //[Authorize]
     public class TestController : ControllerBase
     {
         public TestController()
@@ -22,7 +22,7 @@ namespace Core.Controllers
         {
             try
             {
-                return Ok($"OK: {User.Identity.Name}");
+                return Ok($"Teste OK: {User.Claims.Where(x => x.Type == "name").FirstOrDefault()?.Value}");
             }
             catch (Exception ex)
             {

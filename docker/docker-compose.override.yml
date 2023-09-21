@@ -188,7 +188,7 @@ services:
   ocelotapigateway:
     container_name: ocelotapigateway
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_ENVIRONMENT=Docker
     depends_on:
       - catalog.api
       - basket.api
@@ -212,19 +212,19 @@ services:
       - "8011:80"
 
 ####### APPS #########
-  aspnetrazor:
-    container_name: aspnetrazor
-    environment:
-        - ASPNETCORE_ENVIRONMENT=Development
-        - "ApiSettings:GatewayAddress=http://ocelotapigateway"
-    depends_on:
-        - ocelotapigateway
-        - catalog.api
-        - basket.api
-        - discount.api
-        - order.api
-    ports:
-        - "8020:80"
+  # aspnetrazor:
+  #   container_name: aspnetrazor
+  #   environment:
+  #       - ASPNETCORE_ENVIRONMENT=Development
+  #       - "ApiSettings:GatewayAddress=http://ocelotapigateway"
+  #   depends_on:
+  #       - ocelotapigateway
+  #       - catalog.api
+  #       - basket.api
+  #       - discount.api
+  #       - order.api
+  #   ports:
+  #       - "8020:80"
 
   aspnetcoremvc.localhost:
     container_name: aspnetcoremvc.localhost

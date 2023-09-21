@@ -14,7 +14,7 @@ COPY ["Services/Discount/Discount.Infra/Discount.Infra.csproj", "Services/Discou
 RUN dotnet restore "Services/Discount/Discount.Grpc/Discount.Grpc.csproj"
 COPY . .
 WORKDIR "/src/Services/Discount/Discount.Grpc"
-RUN dotnet build "Discount.Grpc.csproj" -c Release -o /app/build
+#RUN dotnet build "Discount.Grpc.csproj" -c Release -o /app/build
 
 FROM build AS publish
 RUN dotnet publish "Discount.Grpc.csproj" -c Release -o /app/publish /p:UseAppHost=false

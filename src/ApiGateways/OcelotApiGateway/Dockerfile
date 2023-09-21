@@ -10,7 +10,7 @@ COPY ["ApiGateways/OcelotApiGateway/OcelotApiGateway.csproj", "ApiGateways/Ocelo
 RUN dotnet restore "ApiGateways/OcelotApiGateway/OcelotApiGateway.csproj"
 COPY . .
 WORKDIR "/src/ApiGateways/OcelotApiGateway"
-RUN dotnet build "OcelotApiGateway.csproj" -c Release -o /app/build
+#RUN dotnet build "OcelotApiGateway.csproj" -c Release -o /app/build
 
 FROM build AS publish
 RUN dotnet publish "OcelotApiGateway.csproj" -c Release -o /app/publish /p:UseAppHost=false

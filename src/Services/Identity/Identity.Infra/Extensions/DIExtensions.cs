@@ -1,4 +1,5 @@
-﻿using Identity.Application.Domain;
+﻿using Core.Configurations;
+using Identity.Application.Domain;
 using Identity.Infra.Data.Context;
 using Identity.Infra.Openiddict;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -14,6 +15,8 @@ namespace Identity.Infra.Extensions
     {
         public static IServiceCollection AddInfraLayer(this IServiceCollection services, IConfiguration configuration)
         {
+            services.AddRSAKeys(configuration);
+
             services.AddDbContext<AppIdentityDbContext>(options =>
             {
                 options.UseSqlServer(configuration.GetConnectionString("IdentityDB"));

@@ -136,13 +136,13 @@ services:
       - store-net
 
 ####### APPS #########
-  aspnetrazor:
-    image: ${DOCKER_REGISTRY-}aspnetrazor
-    build:
-      context: ../src
-      dockerfile: WebApps/AspNetRazor/Dockerfile
-    networks:
-      - store-net
+  # aspnetrazor:
+  #   image: ${DOCKER_REGISTRY-}aspnetrazor
+  #   build:
+  #     context: ../src
+  #     dockerfile: WebApps/AspNetRazor/Dockerfile
+  #   networks:
+  #     - store-net
 
   aspnetcoremvc.localhost:
     image: ${DOCKER_REGISTRY-}aspnetcoremvc

@@ -11,7 +11,7 @@ COPY ["BuildingBlocks/Core/Core.csproj", "BuildingBlocks/Core/"]
 RUN dotnet restore "ApiGateways/Shopping.Aggregator/Shopping.Aggregator.csproj"
 COPY . .
 WORKDIR "/src/ApiGateways/Shopping.Aggregator"
-RUN dotnet build "Shopping.Aggregator.csproj" -c Release -o /app/build
+#RUN dotnet build "Shopping.Aggregator.csproj" -c Release -o /app/build
 
 FROM build AS publish
 RUN dotnet publish "Shopping.Aggregator.csproj" -c Release -o /app/publish /p:UseAppHost=false

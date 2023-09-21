@@ -26,4 +26,8 @@
     <Folder Include="Identity\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\BuildingBlocks\Core\Core.csproj" />
+  </ItemGroup>
+
 </Project>

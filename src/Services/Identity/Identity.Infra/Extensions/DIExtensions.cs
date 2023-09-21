@@ -2,6 +2,7 @@
 using Identity.Application.Domain;
 using Identity.Infra.Data.Context;
 using Identity.Infra.Openiddict;
+using MassTransit;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -43,6 +44,15 @@ namespace Identity.Infra.Extensions
             services.AddQuartzHostedService(options => options.WaitForJobsToComplete = true);
 
             services.AddOpenIddictConfigs(configuration);
+
+
+            services.AddMassTransit(config =>
+            {
+                config.UsingRabbitMq((ctx, cfg) =>
+                {
+                    cfg.Host(configuration["EventBusSettings:HostAddress"]);
+                });
+            });
 
             return services;
         }

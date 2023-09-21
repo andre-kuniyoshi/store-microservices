@@ -13,6 +13,26 @@
             <hr />
             <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
             <div class="form-floating mb-3">
+                <input asp-for="Input.FullName" class="form-control" autocomplete="username" aria-required="true" placeholder="Your Name" />
+                <label asp-for="Input.FullName">Full Name</label>
+                <span asp-validation-for="Input.FullName" class="text-danger"></span>
+            </div>
+            <div class="form-floating mb-3">
+                <input asp-for="Input.BirthDate" type="date" asp-format="{0:yyyy-MM-dd}"  class="form-control" aria-required="true" placeholder="Your Birth Date" />
+                <label asp-for="Input.BirthDate">Birth Date</label>
+                <span asp-validation-for="Input.BirthDate" class="text-danger"></span>
+            </div>
+            <div class="form-floating mb-3">
+                <input asp-for="Input.Document" class="form-control" aria-required="true" placeholder="XXX.XXX.XXX-XX" />
+                <label asp-for="Input.Document">Document</label>
+                <span asp-validation-for="Input.Document" class="text-danger"></span>
+            </div>
+            <div class="form-floating mb-3">
+                <input asp-for="Input.Phone" class="form-control" aria-required="true" placeholder="(XX)XXXXX-XXXX" />
+                <label asp-for="Input.Phone">Phoneee</label>
+                <span asp-validation-for="Input.Phone" class="text-danger"></span>
+            </div>
+            <div class="form-floating mb-3">
                 <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
                 <label asp-for="Input.Email">Email</label>
                 <span asp-validation-for="Input.Email" class="text-danger"></span>
@@ -31,7 +51,7 @@
         </form>
     </div>
     <div class="col-md-6 col-md-offset-2">
-        <section>
+        @* <section>
             <h3>Use another service to register.</h3>
             <hr />
             @{
@@ -58,7 +78,7 @@
                     </form>
                 }
             }
-        </section>
+        </section> *@
     </div>
 </div>
 

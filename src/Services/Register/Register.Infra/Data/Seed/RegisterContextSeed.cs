@@ -44,6 +44,10 @@ namespace Order.Infra.Data.Seed
                         MigrateDatabase(webApp, retryForAvailability);
                     }
                 }
+                catch (Exception ex)
+                {
+                    loggerContext.LogError(ex, "An error occurred while migrating the database used on context {DbContextName}", nameRegistersContext);
+                }
             }
         }
 

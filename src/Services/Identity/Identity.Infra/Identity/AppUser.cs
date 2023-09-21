@@ -4,6 +4,6 @@ namespace Identity.Application.Domain
 {
     public class AppUser : IdentityUser
     {
-
+       
     }
 }

@@ -12,7 +12,7 @@ namespace Register.Infra.Data.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Register",
+                name: "Users",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -30,7 +30,7 @@ namespace Register.Infra.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Register", x => x.Id);
+                    table.PrimaryKey("PK_Users", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -56,9 +56,9 @@ namespace Register.Infra.Data.Migrations
                 {
                     table.PrimaryKey("PK_Adresses", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Adresses_Register_UserId",
+                        name: "FK_Adresses_Users_UserId",
                         column: x => x.UserId,
-                        principalTable: "Register",
+                        principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -77,7 +77,7 @@ namespace Register.Infra.Data.Migrations
                 name: "Adresses");
 
             migrationBuilder.DropTable(
-                name: "Register");
+                name: "Users");
         }
     }
 }

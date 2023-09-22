@@ -4,7 +4,6 @@ using System.Text.Encodings.Web;
 using EventBus.Messages.Events;
 using Identity.Application.Domain;
 using MassTransit;
-using MassTransit.Transports;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
@@ -111,7 +110,7 @@ namespace Identity.MVC.Areas.Identity.Pages.Account
 
                     var eventMessage = new RegisterNewUserEvent
                     {
-                        UserID = Guid.Parse(user.Id),
+                        UserID = user.Id,
                         FullName = Input.FullName,
                         Email = Input.Email,
                         Phone = Input.Phone,

@@ -2,7 +2,7 @@
 
 namespace Identity.Application.Domain
 {
-    public class AppUser : IdentityUser<Guid>
-    {   
+    public class AppRole : IdentityRole<Guid>
+    {
     }
 }

@@ -3,7 +3,6 @@ using Identity.Application.Domain;
 using Identity.Infra.Data.Context;
 using Identity.Infra.Openiddict;
 using MassTransit;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -26,7 +25,7 @@ namespace Identity.Infra.Extensions
             });
 
             // Register the Identity services.
-            services.AddIdentity<AppUser, IdentityRole>()
+            services.AddIdentity<AppUser, AppRole>()
                 .AddEntityFrameworkStores<AppIdentityDbContext>()
                 .AddDefaultTokenProviders()
                 .AddDefaultUI();

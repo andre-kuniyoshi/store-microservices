@@ -25,7 +25,7 @@ namespace Identity.Infra.Data.Seed
                 var services = scope.ServiceProvider;
 
                 var userManager = services.GetRequiredService<UserManager<AppUser>>();
-                var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+                var roleManager = services.GetRequiredService<RoleManager<AppRole>>();
                 var applicationManager = services.GetRequiredService<IOpenIddictApplicationManager>();
 
                 var loggerContext = services.GetRequiredService<ILogger<AppIdentityDbContext>>();

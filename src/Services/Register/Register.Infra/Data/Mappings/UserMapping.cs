@@ -31,7 +31,7 @@ namespace Register.Infra.Data.Mappings
             builder.HasOne(f => f.Address)
                 .WithOne(p => p.User);
 
-            builder.ToTable("Register");
+            builder.ToTable("Users");
         }
     }
 }

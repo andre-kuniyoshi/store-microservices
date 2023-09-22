@@ -3,6 +3,7 @@ using AspNetCoreMVC.Data;
 using Microsoft.EntityFrameworkCore;
 using Quartz;
 using Core.Configurations;
+using Serilog;
 
 namespace AspNetCoreMVC
 {
@@ -12,6 +13,8 @@ namespace AspNetCoreMVC
         {
             var builder = WebApplication.CreateBuilder(args);
             builder.Host.ConfigureAppSettings();
+            builder.Host.AddSerilog();
+
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
@@ -68,6 +71,7 @@ namespace AspNetCoreMVC
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
 
+            Log.Information($"Starting {app.Environment.ApplicationName} - {app.Environment.EnvironmentName}.");
             app.Run();
         }
     }

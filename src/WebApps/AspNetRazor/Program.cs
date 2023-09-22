@@ -9,7 +9,6 @@ namespace AspNetRazor
     {
         public static void Main(string[] args)
         {
-            HostConfigurations.ConfigureSerilog();
             var host = CreateHostBuilder(args).Build();
 
             host.Run();

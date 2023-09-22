@@ -16,8 +16,7 @@ namespace Order.API
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            HostConfigurations.ConfigureSerilog();
-            builder.Host.UseSerilog();
+            builder.Host.AddSerilog();
 
             // Add services to the container.
             builder.Services.AddControllers();

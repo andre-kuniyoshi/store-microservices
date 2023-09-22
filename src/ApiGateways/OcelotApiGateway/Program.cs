@@ -1,11 +1,7 @@
 using Core.Configurations;
-using Microsoft.IdentityModel.Tokens;
-using Ocelot.Cache.CacheManager;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
-using Ocelot.Values;
-using OpenIddict.Validation.AspNetCore;
-using System.Security.Cryptography;
+using Serilog;
 
 namespace OcelotApiGateway
 {
@@ -16,19 +12,20 @@ namespace OcelotApiGateway
             var builder = WebApplication.CreateBuilder(args);
             builder.ConfigureAppSettings();
 
+            builder.Host.AddSerilog();
             builder.Configuration
                 .AddJsonFile($"ocelot.{builder.Environment.EnvironmentName}.json", optional: true, reloadOnChange: true);
+
 
             builder.Services.AddRSAPublicKey(builder.Configuration);
             builder.Services.AddSecurityConfigs(builder.Configuration);
 
             builder.Services.AddOcelot();
-            
+
             builder.Logging.AddConsole();
             builder.Logging.AddDebug();
 
             var app = builder.Build();
-
 
             if (app.Environment.IsDevelopment())
             {
@@ -36,12 +33,12 @@ namespace OcelotApiGateway
                 app.UseRouting();
                 app.UseEndpoints(endpoints => endpoints.MapControllers());
             }
-
+            app.UseHttpLoggingSerilog();
             await app.UseOcelot();
             app.UseAuthentication();
             app.UseAuthorization();
 
-
+            Log.Information($"Starting {app.Environment.ApplicationName} - {app.Environment.EnvironmentName}.");
             app.Run();
         }
     }

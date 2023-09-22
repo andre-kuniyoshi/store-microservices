@@ -40,32 +40,47 @@ namespace Core.Configurations
             return webAppBuilder;
         }
 
-        public static void ConfigureSerilog()
+        public static IHostBuilder AddSerilog(this IHostBuilder hostBuilder)
         {
-            var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
-            var configuration = new ConfigurationBuilder()
-                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-                .AddJsonFile(
-                    $"appsettings.{environment}.json",
-                    optional: true)
-                .Build();
+            if(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development")
+            {
+                hostBuilder.UseSerilog((hostingContext, loggerConfiguration) =>
+                {
+                    loggerConfiguration
+                        .Enrich.FromLogContext()
+                        .Enrich.WithMachineName()
+                        .WriteTo.Console()
+                        .WriteTo.Debug()
+                        .Enrich.WithProperty("Environment", hostingContext.HostingEnvironment.EnvironmentName)
+                        .Enrich.WithProperty("ApplicationName", hostingContext.Configuration.GetValue<string>("Application:Name")!)
+                        .ReadFrom.Configuration(hostingContext.Configuration);
+                });
+            }
+            else
+            {
+                hostBuilder.UseSerilog((hostingContext, loggerConfiguration) =>
+                {
+                    loggerConfiguration
+                        .Enrich.FromLogContext()
+                        .Enrich.WithMachineName()
+                        .WriteTo.Console()
+                        .WriteTo.Elasticsearch(ConfigureElasticSink(hostingContext.Configuration, hostingContext.HostingEnvironment.EnvironmentName))
+                        .Enrich.WithProperty("Environment", hostingContext.HostingEnvironment.EnvironmentName)
+                        .Enrich.WithProperty("ApplicationName", hostingContext.Configuration.GetValue<string>("Aplication:Name")!)
+                        .ReadFrom.Configuration(hostingContext.Configuration);
+                });
+            }
+            
 
-            Log.Logger = new LoggerConfiguration()
-                .Enrich.FromLogContext()
-                .WriteTo.Debug()
-                .WriteTo.Console()
-                .WriteTo.Elasticsearch(ConfigureElasticSink(configuration, environment))
-                .Enrich.WithProperty("Environment", environment)
-                .ReadFrom.Configuration(configuration)
-                .CreateLogger();
+            return hostBuilder;
         }
 
-        private static ElasticsearchSinkOptions ConfigureElasticSink(IConfigurationRoot configuration, string environment)
+        private static ElasticsearchSinkOptions ConfigureElasticSink(IConfiguration configuration, string environment)
         {
             return new ElasticsearchSinkOptions(new Uri(configuration["ElasticConfiguration:Uri"]))
             {
                 AutoRegisterTemplate = true,
-                IndexFormat = $"{Assembly.GetExecutingAssembly().GetName().Name.ToLower().Replace(".", "-")}-{environment?.ToLower().Replace(".", "-")}-{DateTime.UtcNow:yyyy-MM}"
+                IndexFormat = $"{Assembly.GetExecutingAssembly().GetName().Name?.ToLower().Replace(".", "-")}-{environment?.ToLower().Replace(".", "-")}-{DateTime.UtcNow:yyyy-MM}"
             };
         }
     }

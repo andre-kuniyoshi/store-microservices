@@ -35,7 +35,7 @@ namespace Identity.Infra.Data.Seed
 
                 try
                 {
-                    loggerContext.LogInformation("Starting migration database associated with context {DbContextName}", nameOrderContext);
+                    loggerContext.LogInformation("[MIGRATION] Starting migration database associated with context {DbContextName}", nameOrderContext);
 
                     Thread.Sleep(2000);
                     context.Database.Migrate();
@@ -46,11 +46,11 @@ namespace Identity.Infra.Data.Seed
 
                     //await SeedUserClaimsAsync(userManager);
 
-                    loggerContext.LogInformation("Migrated database associated with context {DbContextName} and seeded data", nameOrderContext);
+                    loggerContext.LogInformation("[MIGRATION] Migrated database associated with context {DbContextName} and seeded data", nameOrderContext);
                 }
                 catch (SqlException ex)
                 {
-                    loggerContext.LogError(ex, "An error occurred while migrating the database used on context {DbContextName}", nameOrderContext);
+                    loggerContext.LogError(ex, "[MIGRATION] An error occurred while migrating the database used on context {DbContextName}", nameOrderContext);
 
                     if (retryForAvailability < 50)
                     {
@@ -62,7 +62,7 @@ namespace Identity.Infra.Data.Seed
                 }
                 catch (Exception ex)
                 {
-                    loggerContext.LogError(ex, "An error occurred while migrating the database used on context {DbContextName}", nameOrderContext);
+                    loggerContext.LogError(ex, "[MIGRATION] An error occurred while migrating the database used on context {DbContextName}", nameOrderContext);
                 }
             }
         }

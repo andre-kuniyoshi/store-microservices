@@ -16,9 +16,14 @@ services:
 
 ####### OBESERVABILITY #########
   # elasticsearch:
-  #   image: docker.elastic.co/elasticsearch/elasticsearch
+  #   image: docker.elastic.co/elasticsearch/elasticsearch:8.10.2
+  #   networks:
+  #     - store-net
+
   # kibana:
-  #    image: docker.elastic.co/kibana/kibana
+  #    image: docker.elastic.co/kibana/kibana:8.10.2
+  #    networks:
+  #     - store-net
 
   portainer:
     image: portainer/portainer-ce
@@ -127,13 +132,13 @@ services:
     networks:
       - store-net
 
-  shopping.aggregator:
-    image: ${DOCKER_REGISTRY-}shoppingaggregator
-    build:
-      context: ../src
-      dockerfile: ApiGateways/Shopping.Aggregator/Dockerfile
-    networks:
-      - store-net
+  # shopping.aggregator:
+  #   image: ${DOCKER_REGISTRY-}shoppingaggregator
+  #   build:
+  #     context: ../src
+  #     dockerfile: ApiGateways/Shopping.Aggregator/Dockerfile
+  #   networks:
+  #     - store-net
 
 ####### APPS #########
   # aspnetrazor:

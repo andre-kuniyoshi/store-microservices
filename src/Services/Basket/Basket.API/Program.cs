@@ -10,7 +10,7 @@ namespace Basket.API
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            HostConfigurations.ConfigureSerilog();
+            builder.Host.AddSerilog();
             builder.Host.UseSerilog();
 
             // Add services to the container.

@@ -2,6 +2,7 @@ using Register.Data.Extensions;
 using Register.Application.Extensions;
 using Order.Infra.Data.Seed;
 using Core.Configurations;
+using Serilog;
 
 namespace Register.API
 {
@@ -44,6 +45,7 @@ namespace Register.API
 
             app.MapControllers();
 
+            Log.Information($"Starting {app.Environment.ApplicationName} - {app.Environment.EnvironmentName}.");
             app.Run();
         }
     }

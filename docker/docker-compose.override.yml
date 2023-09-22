@@ -16,6 +16,7 @@ services:
       - "8080:8080"
     depends_on:
       - identity.localhost
+      - aspnetcoremvc.localhost
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
 
@@ -23,10 +24,14 @@ services:
   # elasticsearch:
   #   container_name: elasticsearch
   #   environment:
-  #       - xpack.monitoring.enabled=true
-  #       - xpack.watcher.enabled=false
-  #       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
-  #       - discovery.type=single-node
+  #     - xpack.monitoring.enabled=true
+  #     - xpack.watcher.enabled=false
+  #     - xpack.security.enabled=false
+  #     - xpack.security.enrollment.enabled=false
+  #     - discovery.type=single-node
+  #     - cluster.name=docker-cluster
+  #     - bootstrap.memory_lock=true
+  #     - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
   #   ports:
   #       - "9200:9200"
   #   volumes:
@@ -35,7 +40,7 @@ services:
   # kibana:
   #   container_name: kibana
   #   environment:        
-  #       - ELASTICSEARCH_URL=http://elasticsearch:9200
+  #       - ELASTICSEARCH_URL=http://elasticsearch
   #   depends_on:
   #       - elasticsearch
   #   ports:
@@ -113,17 +118,19 @@ services:
     container_name: identity.localhost
     environment:
       - ASPNETCORE_ENVIRONMENT=Docker
-      - "ConnectionStrings:IdentityDB=Server=shop-sqlserver;Database=IdentityDB;User Id=sa;Password=Admin@1234;Encrypt=False;Trusted_Connection=False;"
     depends_on:
       - sqlserverdb
+      - rabbitmq
     ports:
       - "8000:80"
 
   register.api:
     container_name: register.api
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - "ConnectionStrings:SqlServerConnection=Server=RegisterDB;Database=ShopDB;User Id=sa;Password=Admin@1234;Encrypt=False;Trusted_Connection=False;"
+      - ASPNETCORE_ENVIRONMENT=Docker
+    depends_on:
+      - sqlserverdb
+      - rabbitmq
     ports:
       - "8001:80"
 
@@ -191,25 +198,26 @@ services:
       - ASPNETCORE_ENVIRONMENT=Docker
     depends_on:
       - catalog.api
+      - register.api
       - basket.api
       - discount.api
       - order.api
     ports:
       - "8010:80"
 
-  shopping.aggregator:
-    container_name: shopping.aggregator
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - "ApiSettings:CatalogUrl=http://catalog.api"
-      - "ApiSettings:BasketUrl=http://basket.api"
-      - "ApiSettings:OrderUrl=http://order.api"
-    depends_on:
-      - catalog.api
-      - basket.api
-      - order.api
-    ports:
-      - "8011:80"
+  # shopping.aggregator:
+  #   container_name: shopping.aggregator
+  #   environment:
+  #     - ASPNETCORE_ENVIRONMENT=Development
+  #     - "ApiSettings:CatalogUrl=http://catalog.api"
+  #     - "ApiSettings:BasketUrl=http://basket.api"
+  #     - "ApiSettings:OrderUrl=http://order.api"
+  #   depends_on:
+  #     - catalog.api
+  #     - basket.api
+  #     - order.api
+  #   ports:
+  #     - "8011:80"
 
 ####### APPS #########
   # aspnetrazor:
@@ -230,7 +238,6 @@ services:
     container_name: aspnetcoremvc.localhost
     environment:
       - ASPNETCORE_ENVIRONMENT=Docker
-      - "ConnectionStrings:OpenIdMvcDB=Server=shop-sqlserver;Database=OpenIdMvcDB;User Id=sa;Password=Admin@1234;Encrypt=False;Trusted_Connection=False;"
     depends_on:
       - sqlserverdb
     ports:

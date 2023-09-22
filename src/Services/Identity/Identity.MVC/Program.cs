@@ -1,6 +1,7 @@
 using Identity.Infra.Data.Seed;
 using Identity.Infra.Extensions;
 using Core.Configurations;
+using Serilog;
 
 namespace Identity.MVC
 {
@@ -13,6 +14,8 @@ namespace Identity.MVC
             var builder = WebApplication.CreateBuilder(args);
 
             builder.ConfigureAppSettings();
+
+            builder.Host.AddSerilog();
 
             builder.Services.AddInfraLayer(builder.Configuration);
             // Add services to the container.
@@ -43,6 +46,7 @@ namespace Identity.MVC
 
             app.MapRazorPages();
 
+            Log.Information($"Starting {app.Environment.ApplicationName} - {app.Environment.EnvironmentName}.");
             app.Run();
         }
     }

@@ -4,6 +4,9 @@ using Microsoft.EntityFrameworkCore;
 using Quartz;
 using Core.Configurations;
 using Serilog;
+using AspNetCoreMVC.Extensions;
+using AspNetCoreMVC.Services;
+using AspNetCoreMVC.Services.Interfaces;
 
 namespace AspNetCoreMVC
 {
@@ -14,6 +17,11 @@ namespace AspNetCoreMVC
             var builder = WebApplication.CreateBuilder(args);
             builder.Host.ConfigureAppSettings();
             builder.Host.AddSerilog();
+
+            builder.Services.AddHttpClient<ICatalogService, CatalogService>(c =>
+                c.BaseAddress = new Uri(builder.Configuration.GetValue<string>("ApiSettings:GatewayAddress")!));
+
+            builder.Services.AddStoreServices();
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();

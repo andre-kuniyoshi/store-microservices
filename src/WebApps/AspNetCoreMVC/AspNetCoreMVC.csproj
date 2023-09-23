@@ -11,11 +11,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Extensions\" />
-    <Folder Include="Components\" />
-    <Folder Include="ViewModels\" />
-    <Folder Include="Services\" />
-    <Folder Include="Views\Components\" />
+    <Folder Include="Views\Catalog\" />
+    <Folder Include="Views\Shared\Components\" />
   </ItemGroup>
 
 	<ItemGroup>

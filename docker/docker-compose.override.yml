@@ -137,8 +137,7 @@ services:
   catalog.api:
     container_name: catalog.api
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - "DatabaseSettings:ConnectionString=mongodb://shop-mongodb:27017"
+      - ASPNETCORE_ENVIRONMENT=Docker
     depends_on:
       - mongodb
     ports:

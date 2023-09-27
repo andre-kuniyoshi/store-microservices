@@ -22,9 +22,9 @@ namespace Basket.API.Services
             _publishEndpoint = publishEndpoint;
         }
 
-        public async Task<ShoppingCart> GetBasket(string userName)
+        public async Task<ShoppingCart> GetBasket(Guid userId)
         {
-            var basket = await _basketRepo.GetBasket(userName);
+            var basket = await _basketRepo.GetBasket(userId);
             return basket;
         }
 
@@ -47,19 +47,19 @@ namespace Basket.API.Services
 
         public async Task CheckoutBasket(BasketCheckout basketCheckout)
         {
-            var basket = await _basketRepo.GetBasket(basketCheckout.UserName);
-            if (basket == null)
-            {
-                return;
-            }
+            //var basket = await _basketRepo.GetBasket(basketCheckout.UserName);
+            //if (basket == null)
+            //{
+            //    return;
+            //}
 
-            // send checkout event to rabbitmq
-            var eventMessage = _mapper.Map<BasketCheckoutEvent>(basketCheckout);
-            eventMessage.TotalPrice = basket.TotalPrice;
-            await _publishEndpoint.Publish<BasketCheckoutEvent>(eventMessage);
+            //// send checkout event to rabbitmq
+            //var eventMessage = _mapper.Map<BasketCheckoutEvent>(basketCheckout);
+            //eventMessage.TotalPrice = basket.TotalPrice;
+            //await _publishEndpoint.Publish<BasketCheckoutEvent>(eventMessage);
 
-            // remove the basket
-            await _basketRepo.DeleteBasket(basket.UserName);
+            //// remove the basket
+            //await _basketRepo.DeleteBasket(basket.UserName);
         }
     }
 }

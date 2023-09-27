@@ -42,5 +42,11 @@ namespace Core.Controllers
         {
             _notifier.AddNotication(new Notification(field, message));
         }
+
+        protected Guid GetUserId()
+        {
+            var userId = User.FindFirst("sub")!.Value;
+            return Guid.Parse(userId);
+        }
     }
 }

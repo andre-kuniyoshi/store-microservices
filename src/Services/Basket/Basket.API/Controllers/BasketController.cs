@@ -5,6 +5,8 @@ using Core.NotifierErrors;
 using EventBus.Messages.Events;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
+using System.Security.Claims;
+using System.Security.Principal;
 
 namespace Basket.API.Controllers
 {
@@ -17,15 +19,16 @@ namespace Basket.API.Controllers
             _basketService = basketService;
         }
 
-        [HttpGet("{userName}", Name = "GetBasket")]
+        [HttpGet(Name = "GetBasket")]
         [ProducesResponseType(typeof(ShoppingCart), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-        public async Task<ActionResult<ShoppingCart>> GetBasket(string userName)
+        public async Task<ActionResult<ShoppingCart>> GetBasket()
         {
             try
             {
-                var basket = await _basketService.GetBasket(userName);
-                return Ok(basket ?? new ShoppingCart(userName));
+                var userId = GetUserId();
+                var basket = await _basketService.GetBasket(userId);
+                return Ok(basket ?? new ShoppingCart(userId));
             }
             catch (Exception ex)
             {
@@ -42,6 +45,9 @@ namespace Basket.API.Controllers
         {
             try
             {
+                var userId = GetUserId();
+                basket.UserId = userId;
+
                 var result = await _basketService.CreateUpdateBasket(basket);
                 return Ok(result);
             }

@@ -10,9 +10,9 @@ namespace Basket.API
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            builder.ConfigureAppSettings();
             builder.Host.AddSerilog();
-            builder.Host.UseSerilog();
-
+            
             // Add services to the container.
             builder.Services.AddControllers();
             builder.Services.AddDependencyInjection(builder.Configuration);
@@ -22,9 +22,7 @@ namespace Basket.API
                 options.Configuration = builder.Configuration.GetValue<string>("CacheSettings:ConnectionString");
             });
 
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-            builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+            builder.Services.AddSwaggerConfigs(builder.Environment);
 
             var app = builder.Build();
 
@@ -37,8 +35,11 @@ namespace Basket.API
 
             app.UseAuthorization();
 
+            app.UseTokenParser();
 
             app.MapControllers();
+
+            Log.Information($"Starting {app.Environment.ApplicationName} - {app.Environment.EnvironmentName}.");
 
             app.Run();
         }

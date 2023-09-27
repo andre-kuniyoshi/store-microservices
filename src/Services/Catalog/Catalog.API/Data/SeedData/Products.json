@@ -1,6 +1,7 @@
 [
   {
-    "Id": "602d2149e773f2a3990b47f5",
+    "ObjectId": "602d2149e773f2a3990b47f5",
+    "Id": "569e3fa7-eef9-48a2-9dd6-7e30a1187d32",
     "Name": "IPhone X",
     "Brand": "Apple",
     "Summary": "This phone is the company's biggest change to its flagship smartphone in years. It includes a borderless.",
@@ -12,7 +13,8 @@
     "Category": "SmartPhone"
   },
   {
-    "Id": "602d2149e773f2a3990b47f6",
+    "ObjectId": "602d2149e773f2a3990b47f6",
+    "Id": "6b8c6058-76e1-4ab4-bcdc-72bb2d00dc12",
     "Name": "Samsung 10",
     "Brand": "Samsung",
     "Summary": "This phone is the company's biggest change to its flagship smartphone in years. It includes a borderless.",
@@ -24,7 +26,8 @@
     "Category": "SmartPhone"
   },
   {
-    "Id": "602d2149e773f2a3990b47f7",
+    "ObjectId": "602d2149e773f2a3990b47f7",
+    "Id": "327cc2b9-603e-4196-8158-aa8b6570dc60",
     "Name": "Huawei Plus",
     "Brand": "Huawei",
     "Summary": "This phone is the company's biggest change to its flagship smartphone in years. It includes a borderless.",
@@ -36,7 +39,8 @@
     "Category": "White Appliances"
   },
   {
-    "Id": "602d2149e773f2a3990b47f8",
+    "ObjectId": "602d2149e773f2a3990b47f8",
+    "Id": "8e774172-c954-4c22-a9f3-1374e2178cb0",
     "Name": "Xiaomi Mi 9",
     "Brand": "Xiaomi",
     "Summary": "This phone is the company's biggest change to its flagship smartphone in years. It includes a borderless.",
@@ -48,7 +52,8 @@
     "Category": "White Appliances"
   },
   {
-    "Id": "602d2149e773f2a3990b47f9",
+    "ObjectId": "602d2149e773f2a3990b47f9",
+    "Id": "cce0e675-454a-4897-94a8-ff3c8a7976a5",
     "Name": "HTC U11+ Plus",
     "Brand": "HTC",
     "Summary": "This phone is the company's biggest change to its flagship smartphone in years. It includes a borderless.",
@@ -60,7 +65,8 @@
     "Category": "Smart Phone"
   },
   {
-    "Id": "602d2149e773f2a3990b47fa",
+    "ObjectId": "602d2149e773f2a3990b47fa",
+    "Id": "ffbb2d4b-90b8-4e08-9954-6062a3c2ffd3",
     "Name": "LG G7 ThinQ",
     "Brand": "LG",
     "Summary": "This phone is the company's biggest change to its flagship smartphone in years. It includes a borderless.",

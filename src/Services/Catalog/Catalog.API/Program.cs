@@ -24,7 +24,7 @@ namespace Catalog.API
 
             var app = builder.Build();
 
-            app.Lifetime.ApplicationStarted.Register(() => CatalogContextSeed.SeedData(app.Configuration));
+            app.Lifetime.ApplicationStarted.Register(async () => await CatalogContextSeed.SeedData(app.Configuration));
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())

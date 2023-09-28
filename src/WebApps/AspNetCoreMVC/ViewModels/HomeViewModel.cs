@@ -4,6 +4,6 @@ namespace AspNetCoreMVC.ViewModels
 {
     public class HomeViewModel
     {
-        public IEnumerable<Product> Products { get; set; }
+        public IEnumerable<ProductModel> Products { get; set; }
     }
 }

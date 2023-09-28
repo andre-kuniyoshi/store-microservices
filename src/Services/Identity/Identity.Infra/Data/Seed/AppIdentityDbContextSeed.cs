@@ -20,7 +20,7 @@ namespace Identity.Infra.Data.Seed
             var scopedFactory = webApp.Services.GetService<IServiceScopeFactory>();
             
 
-            using (var scope = scopedFactory.CreateScope())
+            using (var scope = scopedFactory!.CreateScope())
             {
                 var services = scope.ServiceProvider;
 
@@ -38,7 +38,7 @@ namespace Identity.Infra.Data.Seed
                     loggerContext.LogInformation("[MIGRATION] Starting migration database associated with context {DbContextName}", nameOrderContext);
 
                     Thread.Sleep(2000);
-                    context.Database.Migrate();
+                    context!.Database.Migrate();
                     //await SeedRolesAsync(roleManager);
 
                     await SeedUsersAsync(userManager);
@@ -57,7 +57,7 @@ namespace Identity.Infra.Data.Seed
                         retryForAvailability++;
 
                         Thread.Sleep(2000);
-                        MigrateDatabase(webApp, retryForAvailability);
+                        await MigrateDatabase(webApp, retryForAvailability);
                     }
                 }
                 catch (Exception ex)

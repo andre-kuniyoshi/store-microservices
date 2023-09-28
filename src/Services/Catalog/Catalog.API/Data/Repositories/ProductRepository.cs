@@ -12,9 +12,9 @@ namespace Catalog.API.Data.Repositories
             _context = context;
         }
 
-        public async Task<Product> GetProduct(string id)
+        public async Task<Product> GetProduct(string objectId)
         {
-            return await _context.Products.Find(p => p.Id == id).FirstOrDefaultAsync();
+            return await _context.Products.Find(p => p.ObjectId == objectId).FirstOrDefaultAsync();
         }
 
         public async Task<IEnumerable<Product>> GetProductByName(string name)
@@ -46,9 +46,9 @@ namespace Catalog.API.Data.Repositories
             return updateResult.IsAcknowledged && updateResult.ModifiedCount > 0;
         }
 
-        public async Task<bool> DeleteProduct(string id)
+        public async Task<bool> DeleteProduct(string objectId)
         {
-            FilterDefinition<Product> filter = Builders<Product>.Filter.Eq(p => p.Id, id);
+            FilterDefinition<Product> filter = Builders<Product>.Filter.Eq(p => p.ObjectId, objectId);
 
             var deleteResult = await _context.Products.DeleteOneAsync(filter);
 

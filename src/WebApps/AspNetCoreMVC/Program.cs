@@ -21,6 +21,9 @@ namespace AspNetCoreMVC
             builder.Services.AddHttpClient<ICatalogService, CatalogService>(c =>
                 c.BaseAddress = new Uri(builder.Configuration.GetValue<string>("ApiSettings:GatewayAddress")!));
 
+            builder.Services.AddHttpClient<IBasketService, BasketService>(c =>
+                c.BaseAddress = new Uri(builder.Configuration.GetValue<string>("ApiSettings:GatewayAddress")!));
+
             builder.Services.AddStoreServices();
 
             // Add services to the container.

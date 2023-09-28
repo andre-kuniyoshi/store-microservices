@@ -1,4 +1,4 @@
-﻿@model AspNetCoreMVC.Models.Product
+﻿@model AspNetCoreMVC.Models.ProductModel
 
 <div class="col mb-5">
     <div class="card h-100">
@@ -16,7 +16,9 @@
         </div>
         <!-- Product actions-->
         <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
+            <div class="text-center">
+                <a class="btn btn-outline-dark mt-auto" asp-controller="Basket" asp-action="AddProduct" asp-route-productObjectId="@Model.ObjectId">Add to cart</a>
+            </div>
         </div>
     </div>
 </div>

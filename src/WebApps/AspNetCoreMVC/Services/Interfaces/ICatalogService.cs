@@ -4,12 +4,12 @@ namespace AspNetCoreMVC.Services.Interfaces
 {
     public interface ICatalogService
     {
-        public Task<IEnumerable<Product>> GetProducts();
+        public Task<IEnumerable<ProductModel>> GetProducts();
 
-        public Task<Product> GetProduct(Guid id);
+        public Task<ProductModel> GetProduct(string objecId);
 
-        public Task<List<Product>> GetCatalogByCategory(string category);
+        public Task<List<ProductModel>> GetCatalogByCategory(string category);
 
-        public Task<Product> CreateCatalog(Product model);
+        public Task<ProductModel> CreateCatalog(ProductModel model);
     }
 }

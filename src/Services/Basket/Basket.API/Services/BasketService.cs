@@ -30,11 +30,11 @@ namespace Basket.API.Services
 
         public async Task<ShoppingCart> CreateUpdateBasket(ShoppingCart basket)
         {
-            foreach (var item in basket.Items)
-            {
-                var coupon = await _discountGrpcClient.GetDiscount(item.ProductName);
-                item.Price -= coupon.Amount;
-            }
+            //foreach (var item in basket.Items)
+            //{
+            //    var coupon = await _discountGrpcClient.GetDiscount(item.ProductName);
+            //    item.Price -= coupon.Amount;
+            //}
 
             var basketAdded = await _basketRepo.CreateUpdateBasket(basket);
             return basketAdded;

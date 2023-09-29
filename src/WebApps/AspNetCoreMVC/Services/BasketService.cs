@@ -13,10 +13,18 @@ namespace AspNetCoreMVC.Services
             _client = client ?? throw new ArgumentNullException(nameof(client));
         }
 
-        public async Task<BasketModel> GetBasket(string userName)
+        public async Task<BasketModel> GetBasket()
         {
-            var response = await _client.GetAsync($"/Basket/{userName}");
+
+            var response = await _client.GetAsync($"/Basket");
             return await response.ReadContentAs<BasketModel>();
+        }
+
+        public async Task<int> GetBasketItemsCount()
+        {
+
+            var basket = await GetBasket();
+            return  basket.Items.Count;
         }
 
         public async Task<BasketModel> UpdateBasket(BasketModel model)

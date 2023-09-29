@@ -2,11 +2,8 @@
 using Basket.API.Services;
 using Core.Controllers;
 using Core.NotifierErrors;
-using EventBus.Messages.Events;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
-using System.Security.Claims;
-using System.Security.Principal;
 
 namespace Basket.API.Controllers
 {

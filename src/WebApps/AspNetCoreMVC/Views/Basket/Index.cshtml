@@ -8,7 +8,7 @@
         <div class="col">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a asp-page="Index">Home</a></li>
+                    <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Home</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Cart</li>
                 </ol>
             </nav>
@@ -43,10 +43,10 @@
                                 <td class="text-right">@(cartItem.Price * cartItem.Quantity) $</td>
                                 <td class="text-right">
 
-                                    <form asp-page-handler="removetocart" method="post">
+                                    @* <form asp-page-handler="removetocart" method="post">
                                         <button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button>
                                         <input type="hidden" asp-for="@cartItem.ProductId" name="productId" />
-                                    </form>
+                                    </form> *@
 
                                 </td>
                             </tr>
@@ -67,12 +67,12 @@
         <div class="col mb-2">
             <div class="row">
                 <div class="col-sm-12  col-md-6">
-                    @*<button class="btn btn-lg btn-block btn-danger">Continue Shopping</button>*@
-                    <a asp-page="Product" class="btn btn-lg btn-block btn-success">Continue Shopping</a>
+                    <button class="btn btn-lg btn-block btn-danger">Continue Shopping</button>
+                    @* <a asp-page="Product" class="btn btn-lg btn-block btn-success">Continue Shopping</a> *@
                 </div>
                 <div class="col-sm-12 col-md-6 text-right">
-                    @*<button class="btn btn-lg btn-block btn-danger text-uppercase">CheckOut</button>*@
-                    <a asp-page="CheckOut" class="btn btn-lg btn-block btn-danger text-uppercase">CheckOut</a>
+                    <button class="btn btn-lg btn-block btn-danger text-uppercase">CheckOut</button>
+                    @* <a asp-controller="CheckOut" asp-action="Checkout" class="btn btn-lg btn-block btn-danger text-uppercase">CheckOut</a> *@
                 </div>
             </div>
         </div>

@@ -1,9 +1,7 @@
 ﻿using AspNetCoreMVC.Models;
 using AspNetCoreMVC.Services.Interfaces;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using OpenIddict.Client.AspNetCore;
 
 namespace AspNetCoreMVC.Controllers
 {
@@ -18,9 +16,12 @@ namespace AspNetCoreMVC.Controllers
             _basketService = basketService;
         }
 
-        public IActionResult Index()
+        [Authorize]
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var basket = await _basketService.GetBasket();
+
+            return View(basket);
         }
 
         [Authorize]
@@ -28,15 +29,9 @@ namespace AspNetCoreMVC.Controllers
         {
             try
             {
-                var token = await HttpContext.GetTokenAsync(OpenIddictClientAspNetCoreConstants.Tokens.BackchannelAccessToken);
-
-                Console.WriteLine("Token: " + token);
-                var req = Request.Headers;
-                var user = User.Identity;
                 var product = await _catalogService.GetProduct(productObjectId);
 
-                var userName = "ahk";
-                var basket = await _basketService.GetBasket(userName);
+                var basket = await _basketService.GetBasket();
 
                 basket.Items.Add(new BasketItemModel
                 {
@@ -49,7 +44,7 @@ namespace AspNetCoreMVC.Controllers
                 });
 
                 var basketUpdated = await _basketService.UpdateBasket(basket);
-                return View(basketUpdated);
+                return View("Index", basketUpdated);
             }
             catch (Exception ex)
             {

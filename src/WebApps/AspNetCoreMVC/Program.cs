@@ -18,11 +18,7 @@ namespace AspNetCoreMVC
             builder.Host.ConfigureAppSettings();
             builder.Host.AddSerilog();
 
-            builder.Services.AddHttpClient<ICatalogService, CatalogService>(c =>
-                c.BaseAddress = new Uri(builder.Configuration.GetValue<string>("ApiSettings:GatewayAddress")!));
-
-            builder.Services.AddHttpClient<IBasketService, BasketService>(c =>
-                c.BaseAddress = new Uri(builder.Configuration.GetValue<string>("ApiSettings:GatewayAddress")!));
+            builder.Services.AddStoreHttpClients(builder.Configuration);
 
             builder.Services.AddStoreServices();
 
@@ -55,8 +51,6 @@ namespace AspNetCoreMVC
             });
 
             builder.Services.AddOpeniddictConfigurations(builder.Configuration);
-
-            builder.Services.AddHttpClient();
 
             var app = builder.Build();
 

@@ -23,7 +23,10 @@ namespace Basket.API.Data.Repositories
 
         public async Task<ShoppingCart> CreateUpdateBasket(ShoppingCart basket)
         {
-            await _redisCache.SetStringAsync(basket.UserId.ToString(), JsonConvert.SerializeObject(basket));
+            var options = new DistributedCacheEntryOptions();
+            options.SetSlidingExpiration(TimeSpan.FromHours(1));
+
+            await _redisCache.SetStringAsync(basket.UserId.ToString(), JsonConvert.SerializeObject(basket), options);
 
             return await GetBasket(basket.UserId);
         }

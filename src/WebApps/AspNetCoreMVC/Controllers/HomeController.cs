@@ -1,12 +1,6 @@
-﻿using AspNetCoreMVC.Models;
-using AspNetCoreMVC.Services.Interfaces;
+﻿using AspNetCoreMVC.Services.Interfaces;
 using AspNetCoreMVC.ViewModels;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using OpenIddict.Client.AspNetCore;
-using System.Diagnostics;
-using System.Net.Http.Headers;
 
 namespace AspNetCoreMVC.Controllers
 {
@@ -15,9 +9,11 @@ namespace AspNetCoreMVC.Controllers
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly IConfiguration _config;
         private readonly ICatalogService _catalogService;
-        public HomeController(IHttpClientFactory httpClientFactory, ICatalogService catalogService, IConfiguration config)
+        private readonly IBasketService _basketService;
+        public HomeController(IHttpClientFactory httpClientFactory, ICatalogService catalogService, IBasketService basketService, IConfiguration config)
         {
             _catalogService = catalogService;
+            _basketService = basketService;
             _httpClientFactory = httpClientFactory;
             _config = config;
         }
@@ -28,10 +24,20 @@ namespace AspNetCoreMVC.Controllers
             var products = await _catalogService.GetProducts();
             var homeViewModel = new HomeViewModel
             {
+ 
                 Products = products
             };
 
-            //return View();
+            if(User.Identity != null && User.Identity.IsAuthenticated)
+            {
+                ViewBag.CartItemsCount = await _basketService.GetBasketItemsCount();
+            }
+            //else
+            //{
+            //    ViewBag.CartItemsCount = 0;
+            //}
+
+ 
             return View(model: homeViewModel);
         }
 

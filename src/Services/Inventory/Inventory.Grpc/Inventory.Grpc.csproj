@@ -23,8 +23,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Discount.Application\Discount.Application.csproj" />
-    <ProjectReference Include="..\Discount.Infra\Discount.Infra.csproj" />
+    <ProjectReference Include="..\Inventory.Application\Inventory.Application.csproj" />
+    <ProjectReference Include="..\Inventory.Infra\Inventory.Infra.csproj" />
   </ItemGroup>
 
   <ItemGroup>

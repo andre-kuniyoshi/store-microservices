@@ -21,17 +21,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Basket.API", "src\Services\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core", "src\BuildingBlocks\Core\Core.csproj", "{19FED166-C761-4033-B6A3-C339D3709108}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Discount", "Discount", "{D70277AF-522A-4905-8A76-3B2DFFC92148}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Inventory", "Inventory", "{D70277AF-522A-4905-8A76-3B2DFFC92148}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Discount.API", "src\Services\Discount\Discount.API\Discount.API.csproj", "{58B4389E-A0DE-484F-8633-055E661B8ADC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Inventory.API", "src\Services\Inventory\Inventory.API\Inventory.API.csproj", "{58B4389E-A0DE-484F-8633-055E661B8ADC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Discount.Grpc", "src\Services\Discount\Discount.Grpc\Discount.Grpc.csproj", "{F3DF759B-AA96-47E9-9BCA-8D21CD1584E4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Inventory.Grpc", "src\Services\Inventory\Inventory.Grpc\Inventory.Grpc.csproj", "{F3DF759B-AA96-47E9-9BCA-8D21CD1584E4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Discount.Domain", "src\Services\Discount\Discount.Domain\Discount.Domain.csproj", "{A66DB3D4-2F9B-4833-B4CB-E957B8F360E6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Inventory.Domain", "src\Services\Inventory\Inventory.Domain\Inventory.Domain.csproj", "{A66DB3D4-2F9B-4833-B4CB-E957B8F360E6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Discount.Application", "src\Services\Discount\Discount.Application\Discount.Application.csproj", "{DBF04E49-D80A-4CA8-9536-385112CF81F2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Inventory.Application", "src\Services\Inventory\Inventory.Application\Inventory.Application.csproj", "{DBF04E49-D80A-4CA8-9536-385112CF81F2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Discount.Infra", "src\Services\Discount\Discount.Infra\Discount.Infra.csproj", "{FDC3735D-7767-4A76-91C7-A535BE683C12}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Inventory.Infra", "src\Services\Inventory\Inventory.Infra\Inventory.Infra.csproj", "{FDC3735D-7767-4A76-91C7-A535BE683C12}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Order", "Order", "{11563044-F8BD-45EC-9726-1BDDD2E43FF7}"
 EndProject

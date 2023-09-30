@@ -7,6 +7,6 @@ namespace Basket.API.Services
         public Task<ShoppingCart> GetBasket(Guid userId);
         public Task<ShoppingCart> CreateUpdateBasket(ShoppingCart basket);
         public Task DeleteBasket(string userName);
-        public Task CheckoutBasket(BasketCheckout basketCheckout);
+        public Task CheckoutBasket(Guid userId, BasketCheckout basketCheckout);
     }
 }

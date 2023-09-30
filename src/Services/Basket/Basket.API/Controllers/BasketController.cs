@@ -83,7 +83,8 @@ namespace Basket.API.Controllers
         {
             try
             {
-                await _basketService.CheckoutBasket(basketCheckout);
+                var userId = GetUserId();
+                await _basketService.CheckoutBasket(userId, basketCheckout);
                 return Accepted();
             }
             catch (Exception ex)

@@ -1,12 +1,9 @@
-using EventBus.Messages.Common;
-using MassTransit;
-using Order.API.EventBusConsumer;
-using Order.API.Extensions;
 using Order.Application.Extensions;
 using Order.Infra.Extensions;
 using Serilog;
 using Core.Configurations;
 using Order.Infra.Data.Seed;
+using Order.API.Configurations;
 
 namespace Order.API
 {
@@ -16,27 +13,17 @@ namespace Order.API
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            builder.ConfigureAppSettings();
             builder.Host.AddSerilog();
 
-            // Add services to the container.
             builder.Services.AddControllers();
+
             builder.Services.AddApplicationLayer();
             builder.Services.AddInfraLayer(builder.Configuration);
+
             builder.Services.AddAutoMapper(typeof(Program));
-            builder.Services.AddScoped<BasketCheckoutConsumer>();
 
-            builder.Services.AddMassTransit(config => {
-
-                config.AddConsumer<BasketCheckoutConsumer>();
-
-                config.UsingRabbitMq((ctx, cfg) => {
-                    cfg.Host(builder.Configuration["EventBusSettings:HostAddress"]);
-
-                    cfg.ReceiveEndpoint(EventBusConstants.BasketCheckoutQueue, c => {
-                        c.ConfigureConsumer<BasketCheckoutConsumer>(ctx);
-                    });
-                });
-            });
+            builder.Services.AddRabbitMQConfigs(builder.Configuration);
 
             builder.Services.AddSwaggerConfigs(builder.Environment);
 
@@ -60,8 +47,11 @@ namespace Order.API
 
             app.UseAuthorization();
 
+            app.UseTokenParser();
 
             app.MapControllers();
+
+            Log.Information($"Starting {app.Environment.ApplicationName} - {app.Environment.EnvironmentName}.");
 
             app.Run();
         }

@@ -1,33 +1,31 @@
 ﻿using Dapper;
-using Inventory.Infra.Data.Context;
 using Inventory.Domain.Entities;
 using Inventory.Domain.Interfaces.Repositories;
+using Inventory.Infra.Data.Context;
 
 namespace Inventory.Infra.Data.Repositories
 {
-    public class CouponRepository : ICouponRepository
+    public class CouponRepository : GenericRepository<Coupon>, ICouponRepository
     {
-        private readonly IDbConnectionFactory _context;
-        public CouponRepository(IDbConnectionFactory context)
+        public CouponRepository(IDbContext context) : base(context, "Coupons")
         {
-            _context = context;
         }
 
         public async Task<Coupon> GetDiscount(string productName)
         {
-            var sql = "SELECT * FROM Coupon WHERE ProductName = @ProductName ;";
+            //var sql = "SELECT * FROM Coupon WHERE ProductName = @ProductName ;";
 
-            using (var connection = _context.CrateConnection())
-            {
-                var coupon = await connection.QueryFirstOrDefaultAsync<Coupon>(sql, new { ProductName  = productName });
+            //using (var connection = Context.CrateConnection())
+            //{
+            //    var coupon = await connection.QueryFirstOrDefaultAsync<Coupon>(sql, new { ProductName  = productName });
 
-                if (coupon == null)
-                {
-                    return new Coupon { ProductName = "No Discount", Amount = 0, Description = "No Discount Desc" };
-                }
+            //    if (coupon == null)
+            //    {
+            //        return new Coupon { ProductName = "No Discount", Amount = 0, Description = "No Discount Desc" };
+            //    }
 
-                return coupon;
-            }
+            //    return coupon;
+            //}
 
         }
 

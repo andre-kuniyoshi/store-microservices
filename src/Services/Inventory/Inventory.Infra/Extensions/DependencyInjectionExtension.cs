@@ -10,7 +10,10 @@ namespace Inventory.Infra.Extensions
         public static IServiceCollection AddInfraLayer(this IServiceCollection services)
         {
             services.AddScoped<IDbContext, PostgresContext>();
+
             services.AddScoped<ICouponRepository, CouponRepository>();
+            services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<ISaleRepository, SaleRepository>();
 
             return services;
         }

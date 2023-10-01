@@ -2,7 +2,7 @@
 
 namespace Inventory.Domain.Entities
 {
-    public class Coupon : BaseEntity
+    public class Coupon : BaseControlEntity
     {
         public string Code { get; set; }
         public string Description { get; set; }

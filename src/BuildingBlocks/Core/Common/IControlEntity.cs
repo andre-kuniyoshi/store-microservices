@@ -1,6 +1,7 @@
-﻿namespace Core.Common
+﻿
+namespace Core.Common
 {
-    public abstract class ControlEntity : IControlEntity
+    public interface IControlEntity
     {
         public bool Active { get; set; }
         public string CreatedBy { get; set; }

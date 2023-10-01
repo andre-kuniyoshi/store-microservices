@@ -2,11 +2,11 @@
 
 namespace Inventory.Domain.Entities
 {
-    public class Sale : BaseEntity
+    public class Sale : BaseControlEntity
     {
         public Guid ProductId { get; set; }
-        public DateTime Start { get; set; }
-        public DateTime End { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
         public decimal Price { get; set; }
     }
 }

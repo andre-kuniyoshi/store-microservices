@@ -1,7 +1,9 @@
-﻿namespace Core.Common
+﻿
+namespace Core.Common
 {
-    public abstract class ControlEntity : IControlEntity
+    public abstract class BaseControlEntity : IEntity, IControlEntity
     {
+        public Guid Id { get; set; }
         public bool Active { get; set; }
         public string CreatedBy { get; set; }
         public DateTime CreatedDate { get; set; }

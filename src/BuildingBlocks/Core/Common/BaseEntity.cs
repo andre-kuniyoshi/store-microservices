@@ -1,7 +1,7 @@
 ﻿
 namespace Core.Common
 {
-    public abstract class BaseEntity : ControlEntity
+    public abstract class BaseEntity : IEntity
     {
         public Guid Id { get; set; }
         

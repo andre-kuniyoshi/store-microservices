@@ -2,7 +2,7 @@
 
 namespace Inventory.Domain.Entities
 {
-    public class Product : BaseEntity
+    public class Product : BaseControlEntity
     {
         public Guid Id { get; set; }
         public decimal Price { get; set; }

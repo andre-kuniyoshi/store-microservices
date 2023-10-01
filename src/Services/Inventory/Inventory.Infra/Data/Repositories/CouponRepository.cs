@@ -1,14 +1,14 @@
 ﻿using Dapper;
-using Discount.Infra.Data.Context;
-using Discount.Domain.Entities;
-using Discount.Domain.Interfaces.Repositories;
+using Inventory.Infra.Data.Context;
+using Inventory.Domain.Entities;
+using Inventory.Domain.Interfaces.Repositories;
 
-namespace Discount.Infra.Data.Repositories
+namespace Inventory.Infra.Data.Repositories
 {
-    public class DiscountRepository : IDiscountRepository
+    public class CouponRepository : ICouponRepository
     {
-        private readonly IDbContext _context;
-        public DiscountRepository(IDbContext context)
+        private readonly IDbConnectionFactory _context;
+        public CouponRepository(IDbConnectionFactory context)
         {
             _context = context;
         }

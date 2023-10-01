@@ -1,9 +1,9 @@
 ﻿using Core.DependencyInjectionExtension;
-using Discount.Application.Services;
-using Discount.Domain.Interfaces.Services;
+using Inventory.Application.Services;
+using Inventory.Domain.Interfaces.Services;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Discount.Application.Extensions
+namespace Inventory.Application.Extensions
 {
     public static class DependencyInjectionExtension
     {

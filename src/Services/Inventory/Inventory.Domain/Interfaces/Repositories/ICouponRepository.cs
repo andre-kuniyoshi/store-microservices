@@ -1,8 +1,8 @@
-﻿using Discount.Domain.Entities;
+﻿using Inventory.Domain.Entities;
 
-namespace Discount.Domain.Interfaces.Repositories
+namespace Inventory.Domain.Interfaces.Repositories
 {
-    public interface IDiscountRepository
+    public interface ICouponRepository
     {
         public Task<Coupon> GetDiscount(string productName);
         public Task<bool> CreateDiscount(Coupon coupon);

@@ -1,14 +1,14 @@
-﻿using Discount.Domain.Entities;
-using Discount.Domain.Interfaces.Repositories;
-using Discount.Domain.Interfaces.Services;
+﻿using Inventory.Domain.Entities;
+using Inventory.Domain.Interfaces.Repositories;
+using Inventory.Domain.Interfaces.Services;
 
-namespace Discount.Application.Services
+namespace Inventory.Application.Services
 {
     public class DiscountService : IDiscountService
     {
-        private readonly IDiscountRepository _discountRepo;
+        private readonly ICouponRepository _discountRepo;
 
-        public DiscountService(IDiscountRepository discountRepo)
+        public DiscountService(ICouponRepository discountRepo)
         {
             _discountRepo = discountRepo;
         }

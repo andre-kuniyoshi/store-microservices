@@ -1,6 +1,6 @@
-﻿using Discount.Domain.Entities;
+﻿using Inventory.Domain.Entities;
 
-namespace Discount.Domain.Interfaces.Services
+namespace Inventory.Domain.Interfaces.Services
 {
     public interface IDiscountService
     {

@@ -1,9 +1,10 @@
 ﻿using System.Data;
 
-namespace Discount.Infra.Data.Context
+namespace Inventory.Infra.Data.Context
 {
-    public interface IDbContext
+    public interface IDbContext : IDisposable
     {
-        public IDbConnection CrateConnection();
+        public IDbConnection Connection { get; }
+        public IDbTransaction Transaction { get; set; }
     }
 }

@@ -2,22 +2,24 @@
 using Npgsql;
 using System.Data;
 
-namespace Discount.Infra.Data.Context
+namespace Inventory.Infra.Data.Context
 {
-    public sealed class PostgresContext : IDbContext
+    public class PostgresContext : IDbContext
     {
-        private readonly IConfiguration _configuration;
-        private readonly string _connectionString;
+        public IDbConnection Connection { get; }
 
-        public PostgresContext(IConfiguration _configuration)
+        public IDbTransaction Transaction { get; set; }
+
+        public PostgresContext(IConfiguration configuration)
         {
-            _configuration = _configuration ?? throw new ArgumentNullException();
-            _connectionString = _configuration.GetValue<string>("DatabaseSettings:ConnectionString");
+            Connection = new NpgsqlConnection(configuration.GetConnectionString("InventoryDB") ?? throw new ArgumentNullException("Check db connection string in appsettings"));
+            Connection.Open();
         }
 
-        public IDbConnection CrateConnection()
+        public void Dispose()
         {
-            return new NpgsqlConnection(_connectionString);
+            Connection?.Dispose();
+            GC.SuppressFinalize(this);
         }
     }
 }

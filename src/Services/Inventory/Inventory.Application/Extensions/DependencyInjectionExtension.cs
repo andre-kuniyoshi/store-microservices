@@ -10,8 +10,8 @@ namespace Inventory.Application.Extensions
         public static IServiceCollection AddApplicationLayer(this IServiceCollection services)
         {
 
-            services.AddScoped<IDiscountService, DiscountService>();
-            services.AddScoped<IDiscountService, DiscountService>();
+            services.AddScoped<ICouponService, CouponService>();
+            services.AddScoped<ICouponService, CouponService>();
             services.AddCoreLib();
 
             return services;

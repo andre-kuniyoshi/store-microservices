@@ -9,5 +9,10 @@ namespace Inventory.Domain.Entities
         public decimal PercentageDiscount { get; set; }
         public int Quantity { get; set; }
         public DateTime ExpirationDate { get; set; }
+
+        public void RemoveOneCoupon()
+        {
+            Quantity--;
+        }
     }
 }

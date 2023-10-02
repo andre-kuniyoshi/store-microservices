@@ -6,6 +6,7 @@ namespace Inventory.Domain.Interfaces.Repositories
     {
         Task<bool> AddAsync(TEntity entity);
         Task<bool> UpdateAsync(TEntity newEntity, Guid id);
+        Task<bool> UpdateAsync(TEntity newEntity);
         Task<bool> DeleteAsync(Guid id);
         Task<bool> DeleteLogicAsync(Guid id);
         Task<bool> Exist(Guid id);

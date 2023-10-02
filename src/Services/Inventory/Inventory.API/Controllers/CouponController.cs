@@ -1,34 +1,33 @@
 ﻿using Core.Controllers;
 using Core.NotifierErrors;
-using Discount.Domain.Entities;
-using Discount.Domain.Interfaces.Services;
+using Inventory.Domain.Entities;
+using Inventory.Domain.Interfaces.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
-namespace Discount.API.Controllers
+namespace Inventory.API.Controllers
 {
     [Route("api/v1/[controller]")]
-    public class DiscountController : MainController<DiscountController>
+    public class CouponController : MainController<CouponController>
     {
-        private readonly IDiscountService _discountService;
-        public DiscountController(IDiscountService discountService, INotifier notifier, ILogger<DiscountController> logger) : base(notifier, logger)
+        private readonly ICouponService _couponService;
+        public CouponController(ICouponService couponService, INotifier notifier, ILogger<CouponController> logger) : base(notifier, logger)
         {
-            _discountService = discountService;
+            _couponService = couponService;
         }
 
-        [HttpGet("{productName}", Name = "GetDiscount")]
+        [HttpGet("{code}", Name = "GetCouponBycode")]
         [ProducesResponseType(typeof(IEnumerable<Coupon>), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-        public async Task<IActionResult> GetDiscount(string productName)
+        public async Task<IActionResult> GetCouponBycode(string code)
         {
             try
             {
-                var coupon = await _discountService.GetDiscount(productName);
+                var coupon = await _couponService.GetCouponByCode(code);
                 return Ok(coupon);
             }
             catch (Exception ex)
             {
-
                 Logger.LogCritical(ex.Message);
                 return StatusCode(StatusCodes.Status500InternalServerError);
             }
@@ -37,12 +36,12 @@ namespace Discount.API.Controllers
         [HttpPost]
         [ProducesResponseType(typeof(IEnumerable<Coupon>), (int)HttpStatusCode.Created)]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-        public async Task<IActionResult> CreateDiscount([FromBody] Coupon newCoupon)
+        public async Task<IActionResult> CreateCoupon([FromBody] Coupon newCoupon)
         {
             try
             {
-                var coupon = await _discountService.AddDiscount(newCoupon);
-                return CreatedAtRoute("GetDiscount", new { productName = newCoupon.ProductName }, newCoupon);
+                var coupon = await _couponService.AddCoupon(newCoupon);
+                return CreatedAtRoute("GetCoupon", new { productName = newCoupon.Id }, newCoupon);
             }
             catch (Exception ex)
             {
@@ -55,11 +54,11 @@ namespace Discount.API.Controllers
         [HttpPut]
         [ProducesResponseType(typeof(IEnumerable<Coupon>), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-        public async Task<IActionResult> UpdateDiscount([FromBody] Coupon newCoupon)
+        public async Task<IActionResult> UpdateCoupon([FromBody] Coupon newCoupon)
         {
             try
             {
-                var coupon = await _discountService.AddDiscount(newCoupon);
+                var coupon = await _couponService.AddCoupon(newCoupon);
                 return Ok(newCoupon);
             }
             catch (Exception ex)
@@ -70,14 +69,14 @@ namespace Discount.API.Controllers
             }
         }
 
-        [HttpDelete("{productName}", Name = "DeleteDiscount")]
+        [HttpDelete("{couponId}", Name = "DeleteCoupon")]
         [ProducesResponseType(typeof(IEnumerable<Coupon>), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-        public async Task<IActionResult> DeleteDiscount(string productName)
+        public async Task<IActionResult> DeleteCoupon(Guid couponId)
         {
             try
             {
-                var products = await _discountService.RemoveDiscount(productName);
+                var products = await _couponService.RemoveCoupon(couponId);
                 return Ok(products);
             }
             catch (Exception ex)

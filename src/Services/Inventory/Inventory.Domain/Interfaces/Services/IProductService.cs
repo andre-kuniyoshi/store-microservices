@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Inventory.Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +9,6 @@ namespace Inventory.Domain.Interfaces.Services
 {
     public interface IProductService
     {
+        public Task<Product?> GetProductById(Guid productId);
     }
 }

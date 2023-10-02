@@ -30,7 +30,7 @@ namespace Inventory.Infra.Data.Repositories
 
         public async Task<TEntity?> GetById(Guid id)
         {
-            return await Context.Connection.QuerySingleOrDefaultAsync<TEntity>($"SELECT * FROM {TableName} WHERE {GetGuidColumnName(GetProperties)}=@Id AND Active=@Active",
+            return await Context.Connection.QuerySingleOrDefaultAsync<TEntity>($"SELECT * FROM {TableName} WHERE {GetGuidKeyColumnName(GetProperties)}=@Id AND Active=@Active",
                 new { Id = id, Active = true, Edited = false }, Context.Transaction ?? null);
         }
 
@@ -43,19 +43,19 @@ namespace Inventory.Infra.Data.Repositories
 
         public async Task<bool> DeleteAsync(Guid id)
         {
-            return await Context.Connection.ExecuteAsync($"DELETE FROM {TableName} WHERE {GetGuidColumnName(GetProperties)}=@Id",
+            return await Context.Connection.ExecuteAsync($"DELETE FROM {TableName} WHERE {GetGuidKeyColumnName(GetProperties)}=@Id",
                 new { Id = id }, Context.Transaction ?? null) > 0;
         }
 
         public async Task<bool> DeleteLogicAsync(Guid id)
         {
-            return await Context.Connection.ExecuteAsync($"UPDATE {TableName} SET Active=@Active WHERE {GetGuidColumnName(GetProperties)}=@Id",
+            return await Context.Connection.ExecuteAsync($"UPDATE {TableName} SET Active=@Active WHERE {GetGuidKeyColumnName(GetProperties)}=@Id",
                 new { Id = id, Active = false }, Context.Transaction ?? null) > 0;
         }
 
         public async Task<bool> Exist(Guid id)
         {
-            return await Context.Connection.QuerySingleOrDefaultAsync<TEntity>($"SELECT {GetGuidColumnName(GetProperties)} FROM {TableName} WHERE {GetGuidColumnName(GetProperties)}=@Id",
+            return await Context.Connection.QuerySingleOrDefaultAsync<TEntity>($"SELECT {GetGuidKeyColumnName(GetProperties)} FROM {TableName} WHERE {GetGuidKeyColumnName(GetProperties)}=@Id",
                 new { Id = id }, Context.Transaction ?? null) != null;
         }
 
@@ -102,7 +102,7 @@ namespace Inventory.Infra.Data.Repositories
             });
 
             updateQuery.Remove(updateQuery.Length - 1, 1);
-            updateQuery.Append($" WHERE {GetGuidColumnName(GetProperties)}=");
+            updateQuery.Append($" WHERE {GetGuidKeyColumnName(GetProperties)}=");
 
             if (id != null)
                 updateQuery.Append($"'{id}'");
@@ -147,18 +147,9 @@ namespace Inventory.Infra.Data.Repositories
             ).ToList();
         }
 
-        private static string GetGuidColumnName(IEnumerable<PropertyInfo> listOfProperties)
+        private static string GetGuidKeyColumnName(IEnumerable<PropertyInfo> listOfProperties)
         {
-            return (from prop in listOfProperties
-
-                    let keyAttr = prop.GetCustomAttributes(typeof(KeyAttribute), false)
-
-                    let columnAttr = prop.GetCustomAttributes(typeof(ColumnAttribute), false)
-
-                    where columnAttr.Length > 0 && (columnAttr[0] as ColumnAttribute)?.Name != null && keyAttr != null
-
-                    select (columnAttr[0] as ColumnAttribute)?.Name
-            ).First();
+            return listOfProperties.Where(prop => Attribute.IsDefined(prop, typeof(KeyAttribute))).First().Name;
         }
     }
 }

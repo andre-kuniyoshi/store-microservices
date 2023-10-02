@@ -99,19 +99,19 @@ services:
     networks:
       - store-net
 
-  discount.api:
-    image: ${DOCKER_REGISTRY-}discountapi
+  inventory.api:
+    image: ${DOCKER_REGISTRY-}inventoryapi
     build:
       context: ../src
-      dockerfile: Services/Discount/Discount.API/Dockerfile
+      dockerfile: Services/Inventory/Inventory.API/Dockerfile
     networks:
       - store-net
 
-  discount.grpc:
-    image: ${DOCKER_REGISTRY-}discountgrpc
+  inventory.grpc:
+    image: ${DOCKER_REGISTRY-}inventorygrpc
     build:
       context: ../src
-      dockerfile: Services/Discount/Discount.Grpc/Dockerfile
+      dockerfile: Services/Inventory/Inventory.Grpc/Dockerfile
     networks:
       - store-net
 

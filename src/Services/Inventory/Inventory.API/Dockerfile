@@ -6,20 +6,20 @@ EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
-COPY ["Services/Discount/Discount.API/Discount.API.csproj", "Services/Discount/Discount.API/"]
-COPY ["Services/Discount/Discount.Application/Discount.Application.csproj", "Services/Discount/Discount.Application/"]
+COPY ["Services/Inventory/Inventory.API/Inventory.API.csproj", "Services/Inventory/Inventory.API/"]
+COPY ["Services/Inventory/Inventory.Application/Inventory.Application.csproj", "Services/Inventory/Inventory.Application/"]
 COPY ["BuildingBlocks/Core/Core.csproj", "BuildingBlocks/Core/"]
-COPY ["Services/Discount/Discount.Domain/Discount.Domain.csproj", "Services/Discount/Discount.Domain/"]
-COPY ["Services/Discount/Discount.Infra/Discount.Infra.csproj", "Services/Discount/Discount.Infra/"]
-RUN dotnet restore "Services/Discount/Discount.API/Discount.API.csproj"
+COPY ["Services/Inventory/Inventory.Domain/Inventory.Domain.csproj", "Services/Inventory/Inventory.Domain/"]
+COPY ["Services/Inventory/Inventory.Infra/Inventory.Infra.csproj", "Services/Inventory/Inventory.Infra/"]
+RUN dotnet restore "Services/Inventory/Inventory.API/Inventory.API.csproj"
 COPY . .
-WORKDIR "/src/Services/Discount/Discount.API"
-#RUN dotnet build "Discount.API.csproj" -c Release -o /app/build
+WORKDIR "/src/Services/Inventory/Inventory.API"
+#RUN dotnet build "Inventory.API.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "Discount.API.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "Inventory.API.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "Discount.API.dll"]
+ENTRYPOINT ["dotnet", "Inventory.API.dll"]

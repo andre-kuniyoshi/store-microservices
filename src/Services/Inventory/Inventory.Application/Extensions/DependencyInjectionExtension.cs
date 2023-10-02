@@ -11,7 +11,7 @@ namespace Inventory.Application.Extensions
         {
 
             services.AddScoped<ICouponService, CouponService>();
-            services.AddScoped<ICouponService, CouponService>();
+            services.AddScoped<IProductService, ProductService>();
             services.AddCoreLib();
 
             return services;

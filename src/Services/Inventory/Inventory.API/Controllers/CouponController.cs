@@ -16,10 +16,10 @@ namespace Inventory.API.Controllers
             _couponService = couponService;
         }
 
-        [HttpGet("{code}", Name = "GetCouponBycode")]
+        [HttpGet("{code}", Name = "GetCouponByCode")]
         [ProducesResponseType(typeof(IEnumerable<Coupon>), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-        public async Task<IActionResult> GetCouponBycode(string code)
+        public async Task<IActionResult> GetCouponByCode(string code)
         {
             try
             {

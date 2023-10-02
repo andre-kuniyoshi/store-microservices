@@ -18,7 +18,7 @@ namespace Inventory.API
             builder.Services.AddControllers();
 
             builder.Services.AddApplicationLayer();
-            builder.Services.AddInfraLayer();
+            builder.Services.AddInfraLayer(builder.Configuration);
 
             builder.Services.AddSwaggerConfigs(builder.Environment);
 

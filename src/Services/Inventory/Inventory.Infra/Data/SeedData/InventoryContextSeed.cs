@@ -17,7 +17,7 @@ namespace Inventory.Infra.Data.SeedData
             {
                 var services = scope.ServiceProvider;
                 var loggerContext = services.GetRequiredService<ILogger<PostgresContext>>();
-                var context = services.GetService<PostgresContext>();
+                var context = services.GetRequiredService<IDbContext>();
                 var nameOrderContext = typeof(PostgresContext);
 
                 try

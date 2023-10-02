@@ -65,6 +65,12 @@ namespace Inventory.Infra.Data.Repositories
             return await Context.Connection.ExecuteAsync(query, newEntity, Context.Transaction ?? null) > 0;
         }
 
+        public async Task<bool> UpdateAsync(TEntity newEntity)
+        {
+            var query = GenerateUpdateQuery(newEntity.Id);
+            return await Context.Connection.ExecuteAsync(query, newEntity, Context.Transaction ?? null) > 0;
+        }
+
         private string GenerateInsertQuery()
         {
             var insertQuery = new StringBuilder($"INSERT INTO {TableName} ");

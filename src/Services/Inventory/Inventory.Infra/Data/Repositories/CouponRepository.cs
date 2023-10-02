@@ -11,73 +11,20 @@ namespace Inventory.Infra.Data.Repositories
         {
         }
 
-        public async Task<Coupon> GetDiscount(string productName)
+        public async Task<Coupon?> GetCouponByCode(string code)
         {
-            //var sql = "SELECT * FROM Coupon WHERE ProductName = @ProductName ;";
+            var sql = "SELECT * FROM Coupon WHERE Code = @Code AND Active = true ;";
 
-            //using (var connection = Context.CrateConnection())
-            //{
-            //    var coupon = await connection.QueryFirstOrDefaultAsync<Coupon>(sql, new { ProductName  = productName });
+            var coupon = await Context.Connection.QueryFirstOrDefaultAsync<Coupon>(sql, new { Code = code });
 
-            //    if (coupon == null)
-            //    {
-            //        return new Coupon { ProductName = "No Discount", Amount = 0, Description = "No Discount Desc" };
-            //    }
-
-            //    return coupon;
-            //}
-
+            return coupon;
         }
 
-        public async Task<bool> CreateDiscount(Coupon coupon)
+        public async Task<bool> CodeAlreadyExist(string code)
         {
-            var sql = "INSERT INTO Coupon (ProductName, Description, Amount) VALUES (@ProductName, @Description, @Amount) ; ";
+            var coupon = await GetCouponByCode(code);
 
-            using (var connection = _context.CrateConnection())
-            {
-                var affectedRows = await connection.ExecuteAsync(sql, new { coupon.ProductName, coupon.Description, coupon.Amount });
-
-                if(affectedRows == 0)
-                {
-                    return false;
-                }
-
-                return true;
-            }
-        }
-
-        public async Task<bool> UpdateDiscount(Coupon coupon)
-        {
-            var sql = "UPDATE Coupon SET ProductName = @ProductName, Description = @Description, Amount = @Amount WHERE Id = @Id ; ";
-
-            using (var connection = _context.CrateConnection())
-            {
-                var affectedRows = await connection.ExecuteAsync(sql, new { coupon.Id, coupon.ProductName, coupon.Description, coupon.Amount });
-
-                if (affectedRows == 0)
-                {
-                    return false;
-                }
-
-                return true;
-            }
-        }
-
-        public async Task<bool> DeleteDiscount(string productName)
-        {
-            var sql = "DELETE FROM Coupon WHERE ProductName = @ProductName";
-
-            using (var connection = _context.CrateConnection())
-            {
-                var affectedRows = await connection.ExecuteAsync(sql, new { ProductName = productName });
-
-                if (affectedRows == 0)
-                {
-                    return false;
-                }
-
-                return true;
-            }
+            return coupon is not null;
         }
     }
 }

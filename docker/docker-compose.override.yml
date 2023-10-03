@@ -146,10 +146,7 @@ services:
   basket.api:
     container_name: basket.api
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - "CacheSettings:ConnectionString=shop-redis:6379"
-      - "GrpcSettings:DiscountUrl=http://discount.grpc"
-      - "EventBusSettings:HostAddress=amqp://guest:guest@rabbitmq-broker:5672"
+      - ASPNETCORE_ENVIRONMENT=Docker
     depends_on:
       - redisdb
       - rabbitmq
@@ -159,7 +156,7 @@ services:
   inventory.api:
     container_name: inventory.api
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_ENVIRONMENT=Docker
     depends_on:
       - postgresdb
     ports:
@@ -168,7 +165,7 @@ services:
   inventory.grpc:
     container_name: inventory.grpc
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_ENVIRONMENT=Docker
     depends_on:
       - postgresdb
     ports:
@@ -195,7 +192,7 @@ services:
       - catalog.api
       - register.api
       - basket.api
-      - discount.api
+      - inventory.api
       - order.api
     ports:
       - "8010:80"

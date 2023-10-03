@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 
 namespace Order.Infra.Data.Repositories
 {
-    public class GenericRepository<T> : IAsyncRepository<T> where T : BaseEntity
+    public class GenericRepository<T> : IAsyncRepository<T> where T : BaseControlEntity
     {
         protected readonly OrderContext _dbContext;
 

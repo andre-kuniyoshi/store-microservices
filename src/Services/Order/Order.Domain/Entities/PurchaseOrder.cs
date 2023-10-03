@@ -2,7 +2,7 @@
 
 namespace Order.Domain.Entities
 {
-    public class PurchaseOrder : BaseEntity
+    public class PurchaseOrder : BaseControlEntity
     {
         public string UserName { get; set; }
         public decimal TotalPrice { get; set; }

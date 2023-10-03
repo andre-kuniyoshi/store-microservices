@@ -14,7 +14,7 @@ namespace Order.Infra.Data.Context
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
-            foreach (var entry in ChangeTracker.Entries<BaseEntity>())
+            foreach (var entry in ChangeTracker.Entries<BaseControlEntity>())
             {
                 switch (entry.State)
                 {

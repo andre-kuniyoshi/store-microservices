@@ -3,7 +3,7 @@ using System.Linq.Expressions;
 
 namespace Order.Application.Contracts.Persistence
 {
-    public interface IAsyncRepository<T> where T : BaseEntity
+    public interface IAsyncRepository<T> where T : BaseControlEntity
     {
         Task<IReadOnlyList<T>> GetAllAsync();
         Task<IReadOnlyList<T>> GetAsync(Expression<Func<T, bool>> predicate);

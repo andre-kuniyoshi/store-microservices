@@ -6,20 +6,20 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
-COPY ["Services/Discount/Discount.Grpc/Discount.Grpc.csproj", "Services/Discount/Discount.Grpc/"]
-COPY ["Services/Discount/Discount.Application/Discount.Application.csproj", "Services/Discount/Discount.Application/"]
+COPY ["Services/Inventory/Inventory.Grpc/Inventory.Grpc.csproj", "Services/Inventory/Inventory.Grpc/"]
+COPY ["Services/Inventory/Inventory.Application/Inventory.Application.csproj", "Services/Inventory/Inventory.Application/"]
 COPY ["BuildingBlocks/Core/Core.csproj", "BuildingBlocks/Core/"]
-COPY ["Services/Discount/Discount.Domain/Discount.Domain.csproj", "Services/Discount/Discount.Domain/"]
-COPY ["Services/Discount/Discount.Infra/Discount.Infra.csproj", "Services/Discount/Discount.Infra/"]
-RUN dotnet restore "Services/Discount/Discount.Grpc/Discount.Grpc.csproj"
+COPY ["Services/Inventory/Inventory.Domain/Inventory.Domain.csproj", "Services/Inventory/Inventory.Domain/"]
+COPY ["Services/Inventory/Inventory.Infra/Inventory.Infra.csproj", "Services/Inventory/Inventory.Infra/"]
+RUN dotnet restore "Services/Inventory/Inventory.Grpc/Inventory.Grpc.csproj"
 COPY . .
-WORKDIR "/src/Services/Discount/Discount.Grpc"
-#RUN dotnet build "Discount.Grpc.csproj" -c Release -o /app/build
+WORKDIR "/src/Services/Inventory/Inventory.Grpc"
+#RUN dotnet build "Inventory.Grpc.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "Discount.Grpc.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "Inventory.Grpc.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "Discount.Grpc.dll"]
+ENTRYPOINT ["dotnet", "Inventory.Grpc.dll"]

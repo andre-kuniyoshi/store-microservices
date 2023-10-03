@@ -1,6 +1,6 @@
 {
   "profiles": {
-    "Discount.Grpc": {
+    "Inventory.Grpc": {
       "commandName": "Project",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
@@ -8,7 +8,7 @@
       "dotnetRunMessages": true,
       "applicationUrl": "http://localhost:5014"
     },
-    "Discount.Grpc2": {
+    "Inventory.Grpc2": {
       "commandName": "Project",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"

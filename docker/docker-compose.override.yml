@@ -88,7 +88,7 @@ services:
     environment:
       - POSTGRES_USER=admin
       - POSTGRES_PASSWORD=admin@1234
-      - POSTGRES_DB=ShopDB
+      - POSTGRES_DB=InventoryDB
     restart: always
     ports:
       - "5432:5432"

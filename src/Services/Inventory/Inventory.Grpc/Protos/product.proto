@@ -1,0 +1,50 @@
+syntax = "proto3";
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/wrappers.proto";
+package CustomTypes;
+option csharp_namespace = "Inventory.Grpc.Protos";
+
+service ProductProtoService {
+
+	rpc GetProductPrice (GetProductPriceRequest) returns (ProductModel);
+}
+
+message GetProductPriceRequest {
+	string Id = 1;
+}
+
+// Example: 12345.6789 -> { units = 12345, nanos = 678900000 }
+message DecimalValue {
+
+    // Whole units part of the amount
+    int64 Units = 1;
+
+    // Nano units of the amount (10^-9)
+    // Must be same sign as units
+    sfixed32 Nanos = 2;
+}
+
+message ProductModel {
+	string Id = 1;
+	DecimalValue Price = 2;
+	int32 Quantity = 3;
+	SaleModel Sale = 4;
+	bool Active = 5;
+	string CreatedBy = 6;
+	google.protobuf.Timestamp CreatedDate = 7;
+	google.protobuf.StringValue LastModifiedBy = 8;
+	google.protobuf.Timestamp LastModifiedDate = 9;
+}
+
+message SaleModel {
+	string  Id = 1;
+	DecimalValue Price = 2;
+	google.protobuf.Timestamp StartDate = 3;
+	google.protobuf.Timestamp EndDate = 4;
+
+	bool Active = 5;
+	string CreatedBy = 6;
+	google.protobuf.Timestamp CreatedDate = 7;
+	google.protobuf.StringValue LastModifiedBy = 8;
+	google.protobuf.Timestamp LastModifiedDate = 9;
+}

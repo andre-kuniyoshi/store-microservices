@@ -1,8 +1,8 @@
 ﻿using Basket.API.Data.Repositories;
 using Basket.API.GrpcServicesClients;
 using Basket.API.Services;
-using Discount.Grpc.Protos;
 using MassTransit;
+using Inventory.Grpc.Protos;
 
 namespace Basket.API
 {
@@ -14,9 +14,9 @@ namespace Basket.API
             services.AddScoped<IBasketRepository, BasketRepository>();
             services.AddScoped<IBasketService, BasketService>();
 
-            services.AddGrpcClient<DiscountProtoService.DiscountProtoServiceClient>(opt => opt.Address = new Uri(configuration["GrpcSettings:DiscountUrl"]));
+            services.AddGrpcClient<ProductProtoService.ProductProtoServiceClient>(opt => opt.Address = new Uri(configuration.GetValue<string>("GrpcSettings:InventoryUrl")!));
 
-            services.AddScoped<DiscountGrpcServiceClient>();
+            services.AddScoped<ProductGrpcService>();
 
             services.AddMassTransit(config => 
             {

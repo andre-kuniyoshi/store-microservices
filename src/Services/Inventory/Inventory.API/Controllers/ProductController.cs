@@ -1,6 +1,5 @@
 ﻿using Core.Controllers;
 using Core.NotifierErrors;
-using Inventory.Application.Services;
 using Inventory.Domain.Entities;
 using Inventory.Domain.Interfaces.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -18,7 +17,7 @@ namespace Inventory.API.Controllers
         }
 
         [HttpGet("{productId:Guid}", Name = "GetProductPrice")]
-        [ProducesResponseType(typeof(IEnumerable<Coupon>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(Product), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         public async Task<IActionResult> GetProductPrice(Guid productId)
         {

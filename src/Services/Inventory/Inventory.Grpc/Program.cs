@@ -1,7 +1,6 @@
-using Discount.Grpc.Extensions;
-using Discount.Grpc.Services;
-using Discount.Infra.Extensions;
-using Discount.Application.Extensions;
+using Inventory.Grpc.Services;
+using Inventory.Infra.Extensions;
+using Inventory.Application.Extensions;
 using Core.Configurations;
 using Serilog;
 
@@ -13,6 +12,7 @@ namespace Discount.Grpc
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            builder.ConfigureAppSettings();
             builder.Host.AddSerilog();
 
             // Additional configuration is required to successfully run gRPC on macOS.
@@ -22,16 +22,15 @@ namespace Discount.Grpc
             builder.Services.AddGrpc();
             builder.Services.AddAutoMapper(typeof(Program));
             builder.Services.AddApplicationLayer();
-            builder.Services.AddInfraLayer();
+            builder.Services.AddInfraLayer(builder.Configuration);
 
             var app = builder.Build();
 
-            app.MigrateDatabase<Program>();
-
             // Configure the HTTP request pipeline.
-            app.MapGrpcService<DiscountGrpcService>();
+            app.MapGrpcService<ProductGrpcService>();
             app.MapGet("/", () => "Communication with gRPC endpoints must be made through a gRPC client. To learn how to create a client, visit: https://go.microsoft.com/fwlink/?linkid=2086909");
 
+            Log.Information($"Starting {app.Environment.ApplicationName} - {app.Environment.EnvironmentName}.");
             app.Run();
         }
     }

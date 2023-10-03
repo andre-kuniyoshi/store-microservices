@@ -28,7 +28,7 @@ namespace Register.Application.Services
             }
         }
 
-        protected bool ValidateEntity<TV, TE>(TV validator, TE entity) where TV : AbstractValidator<TE> where TE : BaseEntity
+        protected bool ValidateEntity<TV, TE>(TV validator, TE entity) where TV : AbstractValidator<TE> where TE : BaseControlEntity
         {
             var xalidationResult = validator.Validate(entity);
 

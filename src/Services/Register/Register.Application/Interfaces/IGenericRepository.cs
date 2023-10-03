@@ -4,7 +4,7 @@ using Core.Common;
 
 namespace Register.Application.Interfaces
 {
-    public interface IGenericRepository<TEntity> : IDisposable where TEntity : BaseEntity
+    public interface IGenericRepository<TEntity> : IDisposable where TEntity : BaseControlEntity
     {
         Task Insert(TEntity entity);
         Task<TEntity?> GetByID(Guid id);

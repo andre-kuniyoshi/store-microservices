@@ -6,7 +6,7 @@ using Core.Common;
 
 namespace Register.Infra.Data.Repositories
 {
-    public abstract class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : BaseEntity, new()
+    public abstract class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : BaseControlEntity, new ()
     {
         protected readonly RegistersDbContext Db;
         protected readonly DbSet<TEntity> DbSet;

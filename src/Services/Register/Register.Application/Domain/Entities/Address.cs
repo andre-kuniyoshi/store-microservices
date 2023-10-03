@@ -2,7 +2,7 @@
 
 namespace Register.Application.Domain.Entities
 {
-    public class Address : BaseEntity
+    public class Address : BaseControlEntity
     {
         public Guid UserId { get; set; }
         public string Street { get; set; }

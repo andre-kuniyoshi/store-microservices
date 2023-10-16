@@ -5,7 +5,7 @@ WORKDIR /app
 EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
-WORKDIR /src
+WORKDIR ../src
 COPY ["Services/Inventory/Inventory.API/Inventory.API.csproj", "Services/Inventory/Inventory.API/"]
 COPY ["Services/Inventory/Inventory.Application/Inventory.Application.csproj", "Services/Inventory/Inventory.Application/"]
 COPY ["BuildingBlocks/Core/Core.csproj", "BuildingBlocks/Core/"]

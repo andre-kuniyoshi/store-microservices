@@ -17,7 +17,7 @@ namespace Register.Infra.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.10")
+                .HasAnnotation("ProductVersion", "7.0.11")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -112,6 +112,9 @@ namespace Register.Infra.Data.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(100)");
 
+                    b.Property<bool>("IsAddressComplete")
+                        .HasColumnType("BIT");
+
                     b.Property<string>("LastModifiedBy")
                         .HasColumnType("varchar(100)");
 
@@ -128,7 +131,7 @@ namespace Register.Infra.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Register", (string)null);
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("Register.Application.Domain.Entities.Address", b =>

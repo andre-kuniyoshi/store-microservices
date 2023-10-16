@@ -12,6 +12,9 @@ namespace Register.API
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            builder.ConfigureAppSettings();
+            builder.Host.AddSerilog();
+
             // Add services to the container.
             builder.Services.AddApplicationLayer();
             builder.Services.AddInfraLayer(builder.Configuration);
@@ -44,6 +47,7 @@ namespace Register.API
             app.MapControllers();
 
             Log.Information($"Starting {app.Environment.ApplicationName} - {app.Environment.EnvironmentName}.");
+
             app.Run();
         }
     }

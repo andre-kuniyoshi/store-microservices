@@ -22,6 +22,7 @@ namespace Register.Infra.Data.Migrations
                     Ddd = table.Column<string>(type: "varchar(3)", nullable: false),
                     Phone = table.Column<string>(type: "varchar(10)", nullable: false),
                     Email = table.Column<string>(type: "varchar(100)", nullable: false),
+                    IsAddressComplete = table.Column<bool>(type: "BIT", nullable: false),
                     Active = table.Column<bool>(type: "bit", nullable: false),
                     CreatedBy = table.Column<string>(type: "varchar(100)", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),

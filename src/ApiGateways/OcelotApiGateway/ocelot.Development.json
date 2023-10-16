@@ -2,7 +2,7 @@
   "Routes": [
     //Register API
     {
-      "DownstreamPathTemplate": "/test/api",
+      "DownstreamPathTemplate": "/api/v1/User/GetUser",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -11,7 +11,24 @@
         }
       ],
       "UpstreamPathTemplate": "/Register",
-      "UpstreamHttpMethod": [ "GET", "POST", "PUT" ],
+      "UpstreamHttpMethod": [ "GET" ],
+      "FileCacheOptions": { "TtlSeconds": 30 },
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/api/v1/User",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "5001"
+        }
+      ],
+      "UpstreamPathTemplate": "/Register",
+      "UpstreamHttpMethod": [ "PUT" ],
       "FileCacheOptions": { "TtlSeconds": 30 },
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",

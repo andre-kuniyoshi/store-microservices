@@ -11,6 +11,7 @@ namespace Catalog.API
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            builder.ConfigureAppSettings();
             builder.Host.AddSerilog();
 
             // Add services to the container.
@@ -34,6 +35,8 @@ namespace Catalog.API
             app.UseAuthorization();
 
             app.MapControllers();
+
+            Log.Information($"Starting {app.Environment.ApplicationName} - {app.Environment.EnvironmentName}.");
 
             app.Run();
         }

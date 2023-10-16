@@ -10,6 +10,7 @@ namespace Register.API.DTOs
         public string Ddd { get; set; }
         public string Phone { get; set; }
         public string? Email { get; set; }
+        public bool IsAddressComplete { get; set; }
         public AddressDTO Address { get; set; }
     }
 }

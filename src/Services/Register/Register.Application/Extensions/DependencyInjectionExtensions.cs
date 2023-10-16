@@ -1,7 +1,7 @@
 ﻿using Register.Application.Interfaces;
-using Register.Application.NotificationPattern;
 using Register.Application.Services;
 using Microsoft.Extensions.DependencyInjection;
+using Core.DependencyInjectionExtension;
 
 namespace Register.Application.Extensions
 {
@@ -10,7 +10,7 @@ namespace Register.Application.Extensions
         public static IServiceCollection AddApplicationLayer(this IServiceCollection services)
         {
             services.AddScoped<IUserService, UserService>();
-            services.AddScoped<INotifier, Notifier>();
+            services.AddCoreLib();
 
             return services;
         }

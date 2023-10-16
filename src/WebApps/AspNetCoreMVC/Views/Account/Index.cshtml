@@ -1,0 +1,89 @@
+﻿@model UserModel
+@{
+    ViewData["Title"] = "Account";
+}
+
+<div class="container">
+    <form id="formID" asp-controller="Account" asp-action="Update" method="post">
+        <div class="col-8">
+            <div id="pessoaForm">
+                <h2>@ViewData["Title"]</h2>
+                <div class="row py-3">
+                    <div class="col-4">
+                        <input asp-for="Name" class="form-control" placeholder=@Html.DisplayNameFor(m=>m.Name) />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="col-4">
+                        <input asp-for="BirthDate" type="datetime" class="form-control " placeholder=@Html.DisplayNameFor(m=>m.BirthDate) />
+                        <span asp-validation-for="BirthDate" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="row py-3">
+                    <div class="col-4">
+                        <input asp-for="Document" class="form-control " placeholder=@Html.DisplayNameFor(m=>m.Document) />
+                        <span asp-validation-for="Document" class="text-danger"></span>
+                    </div>
+                    <div class="col-4">
+                        <input asp-for="Ddd" class="form-control " placeholder=@Html.DisplayNameFor(m=>m.Ddd) />
+                        <span asp-validation-for="Ddd" class="text-danger"></span>
+                    </div>
+                    <div class="col-4">
+                        <input asp-for="Phone" class="form-control " placeholder=@Html.DisplayNameFor(m=>m.Phone) />
+                        <span asp-validation-for="Phone" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="enderecoForm" class="row py-3"></div>
+
+            <div id="displayEnderecos" class="row p-3">
+                <div class="col-6 p-0">
+                    <h4>Address</h4>
+                </div>
+
+                <div class="row py-3">
+                    <div class="col-4">
+                        <input asp-for="Address.Street" class="form-control" placeholder=@Html.DisplayNameFor(m=>m.Address.Street) />
+                        <span asp-validation-for="Address.Street" class="text-danger"></span>
+                    </div>
+                    <div class="col-4">
+                        <input asp-for="Address.Number" class="form-control " placeholder=@Html.DisplayNameFor(m=>m.Address.Number) />
+                        <span asp-validation-for="Address.Number" class="text-danger"></span>
+                    </div>
+                    <div class="col-4">
+                        <input asp-for="Address.Complement" class="form-control " placeholder=@Html.DisplayNameFor(m=>m.Address.Complement) />
+                        <span asp-validation-for="Address.Complement" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="row py-3">                
+                    <div class="col-3">
+                        <input asp-for="Address.CEP" class="form-control " placeholder=@Html.DisplayNameFor(m=>m.Address.CEP) />
+                        <span asp-validation-for="Address.CEP" class="text-danger"></span>
+                    </div>
+                    <div class="col-3">
+                        <input asp-for="Address.District" class="form-control " placeholder=@Html.DisplayNameFor(m=>m.Address.District) />
+                        <span asp-validation-for="Address.District" class="text-danger"></span>
+                    </div>
+                    <div class="col-3">
+                        <input asp-for="Address.City" class="form-control " placeholder=@Html.DisplayNameFor(m=>m.Address.City) />
+                        <span asp-validation-for="Address.City" class="text-danger"></span>
+                    </div>
+                    <div class="col-3">
+                        <input asp-for="Address.UF" class="form-control " placeholder=@Html.DisplayNameFor(m=>m.Address.UF) />
+                        <span asp-validation-for="Address.UF" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row p-3">
+                <hr />
+                <div class="form-group d-flex justify-content-end align-items-end p-0">
+                    <input id="submitNovoUsuarioEndereco" type="submit" value="Save" class="btn btn-primary" />
+                </div>
+            </div>
+
+        </div>
+    </form>
+</div>

@@ -28,7 +28,7 @@ namespace Order.Infra.Data.Seed
                     loggerContext.LogInformation("Starting migration database associated with context {DbContextName}", nameRegistersContext);
 
                     context.Database.Migrate();
-                    //await SeedAsync(context, loggerSeeder);
+                    await SeedAsync(context, loggerSeeder);
 
                     loggerContext.LogInformation("Migrated database associated with context {DbContextName} and seeded data", nameRegistersContext);
                 }

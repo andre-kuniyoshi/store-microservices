@@ -7,7 +7,7 @@ namespace Core.Controllers
     [ApiController]
     public abstract class MainController<T> : ControllerBase where T : class
     {
-        private readonly INotifier _notifier;
+        protected readonly INotifier _notifier;
         protected readonly ILogger<T> Logger;
         protected MainController(INotifier notifier, ILogger<T> logger)
         {

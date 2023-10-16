@@ -27,6 +27,9 @@ namespace Register.Infra.Data.Mappings
             builder.Property(p => p.Email)
                 .IsRequired()
                 .HasColumnType("varchar(100)");
+            builder.Property(p => p.IsAddressComplete)
+                .IsRequired()
+                .HasColumnType("BIT");
 
             builder.HasOne(f => f.Address)
                 .WithOne(p => p.User);

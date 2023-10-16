@@ -32,11 +32,13 @@ namespace Core.Middlewares
                 request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
                 httpResponseMessage = await base.SendAsync(request, cancellationToken);
+                // TODO: Improve logs of failed status code
                 httpResponseMessage.EnsureSuccessStatusCode();
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Failed to run http query {RequestUri}", request.RequestUri);
+
                 throw;
             }
 

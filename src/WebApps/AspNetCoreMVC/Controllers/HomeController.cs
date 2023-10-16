@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AspNetCoreMVC.Controllers
 {
+    //[Route("/Home")]
     public class HomeController : Controller
     {
         private readonly IHttpClientFactory _httpClientFactory;

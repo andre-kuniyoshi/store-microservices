@@ -146,6 +146,7 @@ namespace Identity.Infra.Data.Seed
             if (await userManager.FindByEmailAsync("user@teste.com") == null)
             {
                 AppUser user = new AppUser();
+                user.Id = Guid.Parse("b17b522a-b955-469c-b0fc-5bb7ce45e756");
                 user.UserName = "user@teste.com";
                 user.Email = "user@teste.com";
                 user.NormalizedUserName = "USER@TESTE.COM";

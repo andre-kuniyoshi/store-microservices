@@ -63,7 +63,15 @@ namespace Order.Infra.Data.Seed
 
         private static IEnumerable<User> GetPreconfiguredRegisters()
         {
-            var usersData = File.ReadAllText("../Register.Infra/Data/Seed/Users.json");
+            string usersData;
+            if(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development")
+            {
+                usersData = File.ReadAllText("../Register.Infra/Data/Seed/Users.json");
+            } else
+            {
+                usersData = File.ReadAllText("Data/Seed/Users.json");
+            }
+
             var users = JsonSerializer.Deserialize<IEnumerable<User>>(usersData);
 
             foreach (var item in users)

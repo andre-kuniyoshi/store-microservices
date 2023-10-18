@@ -44,7 +44,8 @@ namespace AspNetCoreMVC.Controllers
                 });
 
                 var basketUpdated = await _basketService.UpdateBasket(basket);
-                return View("Index", basketUpdated);
+
+                return RedirectToAction("Index");
             }
             catch (Exception ex)
             {

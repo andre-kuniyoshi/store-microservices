@@ -159,6 +159,7 @@ services:
       - ASPNETCORE_ENVIRONMENT=Docker
     depends_on:
       - postgresdb
+      - rabbitmq
     ports:
       - "8004:80"
 

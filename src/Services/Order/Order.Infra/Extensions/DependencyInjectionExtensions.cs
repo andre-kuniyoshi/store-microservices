@@ -12,7 +12,7 @@ namespace Order.Infra.Extensions
         public static IServiceCollection AddInfraLayer(this IServiceCollection services, IConfiguration configuration)
         {
             // EF Core
-            services.AddDbContext<OrderContext>(options => options.UseSqlServer(configuration.GetConnectionString("OrderConnectionString")));
+            services.AddDbContext<OrderContext>(options => options.UseSqlServer(configuration.GetConnectionString("OrderDB")));
 
             // Repositories
             services.AddScoped(typeof(IAsyncRepository<>), typeof(GenericRepository<>));

@@ -1,26 +1,16 @@
 ﻿using Core.Common;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Order.Domain.Entities
 {
     public class PurchaseOrder : BaseControlEntity
     {
-        public string UserName { get; set; }
+        public Guid ClientId{ get; set; }
         public decimal TotalPrice { get; set; }
-
-        // BillingAddress
-        public string? FirstName { get; set; }
-        public string? LastName { get; set; }
-        public string? EmailAddress { get; set; }
-        public string? AddressLine { get; set; }
-        public string? Country { get; set; }
-        public string? State { get; set; }
-        public string? ZipCode { get; set; }
-
-        // Payment
-        public string? CardName { get; set; }
-        public string? CardNumber { get; set; }
-        public string? Expiration { get; set; }
-        public string? CVV { get; set; }
-        public int? PaymentMethod { get; set; }
+        public List<Product> Products { get; set; }
+        public DeliveryAddress? DeliveryAddress { get; set; }
+        [NotMapped]
+        public Payment? Payment { get; set; }
+        public string? Status { get; set; }
     }
 }

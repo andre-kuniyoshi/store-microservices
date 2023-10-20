@@ -31,13 +31,6 @@ namespace Order.API
 
             app.Lifetime.ApplicationStarted.Register(() => OrderContextSeed.MigrateDatabase(app));
 
-            // Seed Database
-            //app.MigrateDatabase<OrderContext>((context, service) =>
-            //{
-            //    var logger = service.GetService<ILogger<OrderContextSeed>>();
-            //    OrderContextSeed.SeedAsync(context, logger).Wait();
-            //});
-
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {

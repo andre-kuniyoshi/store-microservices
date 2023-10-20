@@ -11,10 +11,10 @@ namespace Order.Infra.Data.Repositories
         {        
         }
 
-        public async Task<IEnumerable<PurchaseOrder>> GetOrdersByUserName(string userName)
+        public async Task<IEnumerable<PurchaseOrder>> GetOrdersByClientId(Guid ClientId)
         {
             var orderList = await _dbContext.Orders
-                                .Where(o => o.UserName == userName)
+                                .Where(o => o.ClientId == ClientId)
                                 .ToListAsync();
             return orderList;
         }

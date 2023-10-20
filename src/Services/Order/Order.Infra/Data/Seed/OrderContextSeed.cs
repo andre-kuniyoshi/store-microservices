@@ -43,6 +43,11 @@ namespace Order.Infra.Data.Seed
                         MigrateDatabase(webApp, retryForAvailability);
                     }
                 }
+                catch (Exception ex)
+                {
+                    loggerContext.LogError(ex, "An error occurred while migrating the database used on context {DbContextName}", nameOrderContext);
+
+                }
             }
         }
 
@@ -60,7 +65,7 @@ namespace Order.Infra.Data.Seed
         {
             return new List<PurchaseOrder>
             {
-                new PurchaseOrder() {UserName = "ahk", FirstName = "Andre", LastName = "Kuniyoshi", EmailAddress = "andre@kuniyoshi.com", AddressLine = "One", Country = "Brazil", TotalPrice = 350 }
+               
             };
         }
     }

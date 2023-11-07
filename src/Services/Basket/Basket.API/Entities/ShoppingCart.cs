@@ -2,7 +2,7 @@
 {
     public class ShoppingCart
     {
-        public Guid UserId { get; set; }
+        public Guid ClientId { get; set; }
         public List<ShoppingCartItem> Items { get; set; } = new List<ShoppingCartItem>();
 
         public ShoppingCart()
@@ -10,9 +10,9 @@
             
         }
 
-        public ShoppingCart(Guid userId)
+        public ShoppingCart(Guid clientId)
         {
-            UserId = userId;
+            ClientId = clientId;
         }
 
         public decimal TotalPrice

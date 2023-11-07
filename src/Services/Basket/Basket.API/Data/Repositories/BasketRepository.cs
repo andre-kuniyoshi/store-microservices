@@ -12,28 +12,28 @@ namespace Basket.API.Data.Repositories
             _redisCache = redisCache;
         }
 
-        public async Task<ShoppingCart> GetBasket(Guid userName)
+        public async Task<ShoppingCart?> GetBasket(Guid clientId)
         {
-            var basket = await _redisCache.GetStringAsync(userName.ToString());
+            var basket = await _redisCache.GetStringAsync(clientId.ToString());
 
             if (String.IsNullOrEmpty(basket)) return null;
 
             return JsonConvert.DeserializeObject<ShoppingCart>(basket);
         }
 
-        public async Task<ShoppingCart> CreateUpdateBasket(ShoppingCart basket)
+        public async Task<ShoppingCart?> CreateUpdateBasket(ShoppingCart basket)
         {
             var options = new DistributedCacheEntryOptions();
             options.SetSlidingExpiration(TimeSpan.FromHours(1));
 
-            await _redisCache.SetStringAsync(basket.UserId.ToString(), JsonConvert.SerializeObject(basket), options);
+            await _redisCache.SetStringAsync(basket.ClientId.ToString(), JsonConvert.SerializeObject(basket), options);
 
-            return await GetBasket(basket.UserId);
+            return await GetBasket(basket.ClientId);
         }
 
-        public async Task DeleteBasket(string userName)
+        public async Task DeleteBasket(Guid clientId)
         {
-            await _redisCache.RemoveAsync(userName);
+            await _redisCache.RemoveAsync(clientId.ToString());
         }
     }
 }

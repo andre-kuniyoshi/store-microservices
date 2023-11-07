@@ -2,7 +2,7 @@
 {
     public class BasketCheckout
     {
-        public Guid Id { get; set; }
+        public Guid ClientId { get; set; }
         public decimal TotalPrice { get; set; }
 
         // BillingAddress

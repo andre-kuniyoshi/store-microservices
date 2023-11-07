@@ -45,26 +45,27 @@ namespace Basket.API.Services
             return basketAdded;
         }
 
-        public async Task DeleteBasket(string userName)
+        public async Task DeleteBasket(Guid userId)
         {
-            await _basketRepo.DeleteBasket(userName);       
+            await _basketRepo.DeleteBasket(userId);       
         }
 
-        public async Task CheckoutBasket(Guid userId, BasketCheckout basketCheckout)
+        public async Task CheckoutBasket(BasketCheckout basketCheckout)
         {
-            var basket = await _basketRepo.GetBasket(basketCheckout.Id);
+            var basket = await _basketRepo.GetBasket(basketCheckout.ClientId);
             if (basket == null)
             {
                 return;
             }
 
             // send checkout event to rabbitmq
+            var products = _mapper.Map<BasketCheckoutEvent>(basketCheckout);
             var eventMessage = _mapper.Map<BasketCheckoutEvent>(basketCheckout);
             eventMessage.TotalPrice = basket.TotalPrice;
             await _publishEndpoint.Publish<BasketCheckoutEvent>(eventMessage);
 
             // remove the basket
-            //await _basketRepo.DeleteBasket(basket.UserName);
+            await _basketRepo.DeleteBasket(basketCheckout.ClientId);
         }
     }
 }

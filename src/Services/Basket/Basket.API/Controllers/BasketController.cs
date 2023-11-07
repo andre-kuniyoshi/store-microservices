@@ -42,8 +42,8 @@ namespace Basket.API.Controllers
         {
             try
             {
-                var userId = GetUserId();
-                basket.UserId = userId;
+                var clientId = GetUserId();
+                basket.ClientId = clientId;
 
                 var result = await _basketService.CreateUpdateBasket(basket);
                 return Ok(result);
@@ -59,11 +59,12 @@ namespace Basket.API.Controllers
         [HttpDelete]
         [ProducesResponseType(typeof(ShoppingCart), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-        public async Task<ActionResult<ShoppingCart>> DeleteBasket(string userName)
+        public async Task<ActionResult<ShoppingCart>> DeleteBasket()
         {
             try
             {
-                await _basketService.DeleteBasket(userName);
+                var userId = GetUserId();
+                await _basketService.DeleteBasket(userId);
                 return Ok();
             }
             catch (Exception ex)
@@ -83,8 +84,8 @@ namespace Basket.API.Controllers
         {
             try
             {
-                var userId = GetUserId();
-                await _basketService.CheckoutBasket(userId, basketCheckout);
+                basketCheckout.ClientId = GetUserId();
+                await _basketService.CheckoutBasket(basketCheckout);
                 return Accepted();
             }
             catch (Exception ex)

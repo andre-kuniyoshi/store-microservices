@@ -24,6 +24,9 @@ namespace Core.Middlewares
             {
                 var token = await _httpContextAccessor.HttpContext!.GetTokenAsync(OpenIddictClientAspNetCoreConstants.Tokens.BackchannelAccessToken);
 
+                // TODO: Remove log in future
+                _logger.LogInformation($"DelegatingHandler token: {token}");
+
                 if (String.IsNullOrEmpty(token))
                 {
                     throw new Exception($"Access token is missing for the request {request.RequestUri}");

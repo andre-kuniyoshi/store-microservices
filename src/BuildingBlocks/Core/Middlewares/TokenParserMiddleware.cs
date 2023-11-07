@@ -19,6 +19,9 @@ namespace Core.Middleware
             if (!string.IsNullOrEmpty(bearerToken))
             {
                 var token = bearerToken.Replace("Bearer ", "");
+
+                // TODO: Remove log in future
+                Console.WriteLine($"Token: {token}");
                 var tokenParsed = new JwtSecurityTokenHandler().ReadJwtToken(token);
 
                 var userIdentity = new ClaimsIdentity(tokenParsed.Claims, ClaimTypes.Name);

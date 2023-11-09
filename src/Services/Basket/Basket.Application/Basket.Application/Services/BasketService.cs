@@ -1,11 +1,13 @@
 ﻿using AutoMapper;
 using Basket.API.Data.Repositories;
 using Basket.API.Entities;
-using Basket.API.GrpcServicesClients;
+using Basket.Infra.Grpc.ServiceClients;
+using Basket.Domain.Interfaces.Repositories;
+using Basket.Domain.Interfaces.Services;
 using EventBus.Messages.Events;
 using MassTransit;
 
-namespace Basket.API.Services
+namespace Basket.Application.Services
 {
     public class BasketService : IBasketService
     {

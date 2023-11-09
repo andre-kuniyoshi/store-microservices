@@ -11,8 +11,8 @@ namespace Basket.API
         public static IServiceCollection AddDependencyInjection(this IServiceCollection services, IConfiguration configuration)
         {
 
-            services.AddScoped<IBasketRepository, BasketRepository>();
-            services.AddScoped<IBasketService, BasketService>();
+            
+            
 
             services.AddGrpcClient<ProductProtoService.ProductProtoServiceClient>(opt => opt.Address = new Uri(configuration.GetValue<string>("GrpcSettings:InventoryUrl")!));
 

@@ -1,8 +1,9 @@
 ﻿using Basket.API.Entities;
+using Basket.Domain.Interfaces.Repositories;
 using Microsoft.Extensions.Caching.Distributed;
 using Newtonsoft.Json;
 
-namespace Basket.API.Data.Repositories
+namespace Basket.Infra.Data.Repositories
 {
     public class BasketRepository : IBasketRepository
     {

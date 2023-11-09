@@ -34,12 +34,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Protobuf Include="..\..\Inventory\Inventory.Grpc\Protos\product.proto" GrpcServices="Client">
-      <Link>Protos\product.proto</Link>
-    </Protobuf>
-  </ItemGroup>
-
-  <ItemGroup>
     <Folder Include="DTOs\" />
   </ItemGroup>
 

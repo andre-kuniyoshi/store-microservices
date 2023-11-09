@@ -1,5 +1,5 @@
 ﻿
-namespace Inventory.Grpc.Protos
+namespace Basket.Infra.Grpc.Protos
 {
     public partial class DecimalValue
     {

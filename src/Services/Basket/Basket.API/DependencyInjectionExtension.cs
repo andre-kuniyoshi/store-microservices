@@ -2,7 +2,6 @@
 using Basket.API.GrpcServicesClients;
 using Basket.API.Services;
 using MassTransit;
-using Inventory.Grpc.Protos;
 
 namespace Basket.API
 {
@@ -14,9 +13,7 @@ namespace Basket.API
             
             
 
-            services.AddGrpcClient<ProductProtoService.ProductProtoServiceClient>(opt => opt.Address = new Uri(configuration.GetValue<string>("GrpcSettings:InventoryUrl")!));
-
-            services.AddScoped<ProductGrpcService>();
+            
 
             services.AddMassTransit(config => 
             {

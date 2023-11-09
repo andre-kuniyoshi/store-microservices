@@ -1,22 +1,21 @@
 ﻿using AutoMapper;
-using Basket.API.Data.Repositories;
 using Basket.API.Entities;
-using Basket.Infra.Grpc.ServiceClients;
 using Basket.Domain.Interfaces.Repositories;
 using Basket.Domain.Interfaces.Services;
 using EventBus.Messages.Events;
 using MassTransit;
+using Basket.Domain.Interfaces.GrpcServiceClients;
 
 namespace Basket.Application.Services
 {
     public class BasketService : IBasketService
     {
         private readonly IBasketRepository _basketRepo;
-        private readonly ProductGrpcService _inventoryGrpcClient;
+        private readonly IInventoryGrpcServiceClient _inventoryGrpcClient;
         private readonly IMapper _mapper;
         private readonly IPublishEndpoint _publishEndpoint;
 
-        public BasketService(IBasketRepository basketRepo, ProductGrpcService inventoryGrpcClient, IMapper mapper, IPublishEndpoint publishEndpoint)
+        public BasketService(IBasketRepository basketRepo, IInventoryGrpcServiceClient inventoryGrpcClient, IMapper mapper, IPublishEndpoint publishEndpoint)
         {
             _basketRepo = basketRepo;
             _inventoryGrpcClient = inventoryGrpcClient;

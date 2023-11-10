@@ -1,4 +1,4 @@
-﻿namespace Basket.API.Entities
+﻿namespace Basket.API.DTOs
 {
     public class BasketCheckout
     {

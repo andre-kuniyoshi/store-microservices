@@ -1,3 +1,5 @@
+using Basket.Application.Extensions;
+using Basket.Infra.Extensions;
 using Core.Configurations;
 using Core.DependencyInjectionExtension;
 using Serilog;
@@ -15,12 +17,11 @@ namespace Basket.API
             
             // Add services to the container.
             builder.Services.AddControllers();
-            builder.Services.AddDependencyInjection(builder.Configuration);
+            builder.Services.AddAutoMapper(typeof(Program));
+
+            builder.Services.AddInfraLayer(builder.Configuration);
+            builder.Services.AddApplicationLayer();
             builder.Services.AddCoreLib();
-            builder.Services.AddStackExchangeRedisCache(options => 
-            {
-                options.Configuration = builder.Configuration.GetValue<string>("CacheSettings:ConnectionString");
-            });
 
             builder.Services.AddSwaggerConfigs(builder.Environment);
 

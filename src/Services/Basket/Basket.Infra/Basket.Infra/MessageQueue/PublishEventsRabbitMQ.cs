@@ -1,4 +1,6 @@
-﻿using Basket.Domain.Interfaces.MessageQueue;
+﻿using Basket.Domain.Entities;
+using Basket.Domain.Interfaces.MessageQueue;
+using EventBus.Messages.Events;
 using MassTransit;
 
 namespace Basket.Infra.MessageQueue
@@ -12,8 +14,9 @@ namespace Basket.Infra.MessageQueue
             _publishEndpoint = publishEndpoint;
         }
 
-        public async Task<bool> PublishCheckoutEvent()
+        public async Task<bool> PublishCheckoutEvent(BasketCheckout basketCheckout)
         {
+            // Mapear para BasketCheckoutEvent
             await _publishEndpoint.Publish<BasketCheckoutEvent>(eventMessage);
             return true;
         }

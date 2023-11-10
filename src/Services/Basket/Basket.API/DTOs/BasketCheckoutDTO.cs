@@ -1,6 +1,6 @@
 ﻿namespace Basket.API.DTOs
 {
-    public class BasketCheckout
+    public class BasketCheckoutDTO
     {
         public Guid ClientId { get; set; }
         public decimal TotalPrice { get; set; }

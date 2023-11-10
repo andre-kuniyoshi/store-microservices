@@ -1,8 +1,8 @@
-﻿using Basket.API.Entities;
-using Basket.Domain.Interfaces.Repositories;
+﻿using Basket.Domain.Interfaces.Repositories;
 using Basket.Domain.Interfaces.Services;
 using Basket.Domain.Interfaces.GrpcServiceClients;
 using Basket.Domain.Interfaces.MessageQueue;
+using Basket.Domain.Entities;
 
 namespace Basket.Application.Services
 {
@@ -49,17 +49,19 @@ namespace Basket.Application.Services
 
         public async Task CheckoutBasket(BasketCheckout basketCheckout)
         {
-            var basket = await _basketRepo.GetBasket(basketCheckout.ClientId);
-            if (basket == null)
+            var shoppingCart = await _basketRepo.GetBasket(basketCheckout.ClientId);
+            if (shoppingCart == null)
             {
                 return;
             }
+            basketCheckout.Products = shoppingCart.Items;
 
             // send checkout event to rabbitmq
-            var products = _mapper.Map<BasketCheckoutEvent>(basketCheckout);
-            var eventMessage = _mapper.Map<BasketCheckoutEvent>(basketCheckout);
-            eventMessage.TotalPrice = basket.TotalPrice;
-            await _publishEndpoint.Publish<BasketCheckoutEvent>(eventMessage);
+            var publishSuccess = await _publishEndpoint.PublishCheckoutEvent(basketCheckout);
+            if(publishSuccess)
+            {
+                return;
+            }
 
             // remove the basket
             await _basketRepo.DeleteBasket(basketCheckout.ClientId);

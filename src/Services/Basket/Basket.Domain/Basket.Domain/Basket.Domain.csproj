@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\BuildingBlocks\Core\Core.csproj" />
+    <ProjectReference Include="..\..\..\..\BuildingBlocks\EventBus.Messages\EventBus.Messages.csproj" />
   </ItemGroup>
 
 </Project>

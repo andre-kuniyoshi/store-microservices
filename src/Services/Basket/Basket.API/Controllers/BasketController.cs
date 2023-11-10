@@ -1,5 +1,6 @@
-﻿using Basket.API.Entities;
-using Basket.API.Services;
+﻿using Basket.API.DTOs;
+using Basket.Domain.Entities;
+using Basket.Domain.Interfaces.Services;
 using Core.Controllers;
 using Core.NotifierErrors;
 using Microsoft.AspNetCore.Mvc;
@@ -80,7 +81,7 @@ namespace Basket.API.Controllers
         [ProducesResponseType((int)HttpStatusCode.Accepted)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-        public async Task<IActionResult> Checkout([FromBody] BasketCheckout basketCheckout)
+        public async Task<IActionResult> Checkout([FromBody] BasketCheckoutDTO basketCheckout)
         {
             try
             {
